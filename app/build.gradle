@@ -1,16 +1,20 @@
+import ir.example.newstest.Deps
+import ir.example.newstest.Android
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-
+    compileSdkVersion Android.compileSdkVersion
     defaultConfig {
-        applicationId "ir.example.newstest"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        applicationId Android.applicationId
+        minSdkVersion Android.minSdkVersion
+        targetSdkVersion Android.targetSdkVersion
+        versionCode Android.versionCode
+        versionName Android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -21,16 +25,68 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures{
+        dataBinding = true
+        // for view binding :
+        // viewBinding = true
+    }
+}
+
+androidExtensions {
+    experimental = true
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(Deps.Modules.domain)
+    implementation project(Deps.Modules.data)
 
+    implementation Deps.Core.kotlin_stdlib
+    implementation Deps.Core.core_ktx
+    implementation Deps.Core.appCompat
+    implementation Deps.Core.fragmentKtx
+    implementation Deps.Core.constraintLayout
+    implementation Deps.Core.googleMaterial
+    implementation Deps.Core.recyclerView
+    implementation Deps.Core.supportFragment
+
+    testImplementation Deps.Test.junit
+    androidTestImplementation Deps.Test.testRunner
+    androidTestImplementation Deps.Test.espresso
+
+    implementation Deps.Dagger.dagger
+    implementation Deps.Dagger.daggerAndroid
+    kapt Deps.Dagger.daggerCompiler
+    kapt Deps.Dagger.daggerAndroidCompiler
+
+    implementation Deps.Coroutine.coroutines_core
+    implementation Deps.Coroutine.coroutines_android
+
+    implementation Deps.LifeCycles.lifecycleExtensions
+    implementation Deps.LifeCycles.runtimeKtx
+    implementation Deps.LifeCycles.livedataKtx
+    implementation Deps.LifeCycles.lifecycleCommon
+
+    implementation Deps.Room.roomRuntime
+    kapt Deps.Room.roomCompiler
+    implementation Deps.Room.roomKtx
+
+    implementation Deps.Navigation.navigationFragment
+    implementation Deps.Navigation.navigationUi
+
+    implementation Deps.ImageProcessing.glide
+    kapt Deps.ImageProcessing.glideCompiler
+
+    implementation Deps.Network.retrofit
+    implementation Deps.Network.converterGson
+    implementation Deps.Network.loggingInterceptor
+    implementation Deps.Network.okhttp
+    implementation Deps.Network.converterXml
 }
