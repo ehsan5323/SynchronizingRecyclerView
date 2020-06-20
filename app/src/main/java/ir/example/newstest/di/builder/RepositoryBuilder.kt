@@ -1,11 +1,13 @@
 package ir.example.newstest.di.builder
 
-import com.example.data.repository.favorite.FavoriteRepositoryImpl
-import com.example.data.repository.news.NewsRepositoryImpl
-import com.example.domain.repository.favorite.FavoriteRepository
-import com.example.domain.repository.news.NewsRepository
+import ir.example.newstest.data.repository.favorite.FavoriteRepositoryImpl
+import ir.example.newstest.data.repository.news.NewsRepositoryImpl
+import ir.example.newstest.domain.repository.favorite.FavoriteRepository
+import ir.example.newstest.domain.repository.news.NewsRepository
 import dagger.Binds
 import dagger.Module
+import ir.example.newstest.domain.repository.FavoriteRepository
+import ir.example.newstest.domain.repository.NewsRepository
 
 @Module
 abstract class RepositoryBuilder {
