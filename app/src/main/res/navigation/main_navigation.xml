@@ -9,7 +9,8 @@
         android:id="@+id/homeFragment"
         android:name="ir.example.newstest.ui.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" ><action
+        tools:layout="@layout/fragment_home" >
+        <action
             android:id="@+id/action_homeFragment_to_detail_navigation"
             app:destination="@id/detail_navigation"
             app:enterAnim="@anim/nav_default_enter_anim"

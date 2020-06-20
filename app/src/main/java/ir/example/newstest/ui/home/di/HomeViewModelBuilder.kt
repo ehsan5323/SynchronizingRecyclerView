@@ -6,6 +6,8 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ir.example.newstest.di.viewmodel.ViewModelKey
 import ir.example.newstest.ui.home.HomeViewModel
+import ir.example.newstest.ui.home.json.JsonFeedViewModel
+import ir.example.newstest.ui.home.xml.XmlFeedViewModel
 
 @Module
 abstract class HomeViewModelBuilder {
@@ -14,5 +16,16 @@ abstract class HomeViewModelBuilder {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     abstract fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(JsonFeedViewModel::class)
+    abstract fun bindJsonFeedViewModel(jsonFeedViewModel: JsonFeedViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(XmlFeedViewModel::class)
+    abstract fun bindXmlFeedViewModel(xmlFeedViewModel: XmlFeedViewModel): ViewModel
+
 
 }

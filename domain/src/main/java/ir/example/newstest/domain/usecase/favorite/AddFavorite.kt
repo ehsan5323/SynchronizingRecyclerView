@@ -4,6 +4,7 @@ import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.repository.FavoriteRepository
 import ir.example.newstest.domain.usecase.base.BaseUseCase
 import kotlinx.coroutines.flow.Flow
+import ir.example.newstest.domain.base.Result
 import javax.inject.Inject
 
 class AddFavorite @Inject constructor(

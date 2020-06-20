@@ -7,7 +7,7 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
-class EhsanTestViewModelFactory @Inject constructor(
+class NewsTestViewModelFactory @Inject constructor(
     private val creators: Map<Class<out ViewModel>,
             @JvmSuppressWildcards Provider<ViewModel>>
 ) : ViewModelProvider.Factory {
@@ -22,8 +22,5 @@ class EhsanTestViewModelFactory @Inject constructor(
         } catch (e: Exception) {
             throw RuntimeException(e)
         }
-    }
-    fun aa():String{
-        return ""
     }
 }

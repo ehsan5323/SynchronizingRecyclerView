@@ -17,10 +17,10 @@ class FavoriteFragment : BaseFragment<FavoriteViewModel, FragmentFavoriteBinding
     override fun configEvents() {
         list_favorite.adapter = adapter
         adapter.onItemClicked = { item, _ ->
-//            viewModel.goToDetailNews(item)
+            viewModel.goToDetailNews(item)
         }
         adapter.onFavoriteClicked = {
-//            viewModel.onFavoriteClicked(it)
+            viewModel.onFavoriteClicked(it)
         }
     }
 

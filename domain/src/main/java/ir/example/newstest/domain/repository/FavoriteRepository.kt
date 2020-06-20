@@ -2,6 +2,7 @@ package ir.example.newstest.domain.repository
 
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.Detail
+import ir.example.newstest.domain.base.Result
 import ir.example.newstest.domain.pojo.News
 import kotlinx.coroutines.flow.Flow
 

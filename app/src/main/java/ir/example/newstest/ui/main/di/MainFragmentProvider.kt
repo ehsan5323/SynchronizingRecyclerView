@@ -8,7 +8,6 @@ import ir.example.newstest.ui.home.HomeFragment
 import ir.example.newstest.ui.home.json.JsonFeedFragment
 import ir.example.newstest.ui.home.xml.XmlFeedFragment
 
-
 @Module
 abstract class MainFragmentProvider {
 
