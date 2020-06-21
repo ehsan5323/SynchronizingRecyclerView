@@ -4,13 +4,13 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.Navigation
 import dagger.android.support.DaggerAppCompatActivity
-import ir.example.newstest.network.ConnectionLiveData
+import ir.example.newstest.util.ConnectionLiveData
 import ir.example.newstest.util.addNavigatorOn
 import ir.example.newstest.util.observeActions
 import javax.inject.Inject
-import androidx.lifecycle.observe
 
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : DaggerAppCompatActivity(),
     BaseView<VM, DB> {

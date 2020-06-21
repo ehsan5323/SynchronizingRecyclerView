@@ -1,4 +1,4 @@
-package ir.example.newstest.network
+package ir.example.newstest.util
 
 import android.annotation.TargetApi
 import android.content.BroadcastReceiver
@@ -11,6 +11,7 @@ import android.net.Network
 import android.net.NetworkInfo
 import android.net.NetworkRequest
 import android.os.Build
+import android.util.Log
 import androidx.lifecycle.LiveData
 
 /**
@@ -61,6 +62,7 @@ object ConnectionLiveData : LiveData<Boolean>() {
                 appContext.unregisterReceiver(networkReceiver)
             }
         } catch (e: Exception) {
+            Log.e(e.message, e.localizedMessage)
         }
     }
 
