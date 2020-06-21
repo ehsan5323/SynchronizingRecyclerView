@@ -1,43 +1,60 @@
 package ir.example.newstest.ui.favorite
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import ir.example.newstest.base.BaseViewModel
-import ir.example.newstest.data.base.MutableResult
-import ir.example.newstest.domain.pojo.News
-import ir.example.newstest.domain.usecase.favorite.AllNews
-import ir.example.newstest.domain.usecase.favorite.RemoveFavorite
-import ir.example.newstest.util.ktx.collectOn
+import ir.example.newstest.domain.pojo.*
+import ir.example.newstest.domain.usecase.favorite.DeleteArticleFavoriteUseCase
+import ir.example.newstest.domain.usecase.favorite.DeleteDetailFavoriteUseCase
+import ir.example.newstest.domain.usecase.favorite.GetAllFavoriteUseCase
+import ir.example.newstest.ui.home.json.API_KEY
+import ir.example.newstest.ui.home.json.COUNTRY
+import ir.example.newstest.util.LiveListResult
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoriteViewModel @Inject constructor(
-    private val allNews: AllNews,
-    private val removeFavorite: RemoveFavorite
+    getAllFavoriteUseCase: GetAllFavoriteUseCase,
+    private val deleteArticleFavoriteUseCase: DeleteArticleFavoriteUseCase,
+    private val deleteDetailFavoriteUseCase: DeleteDetailFavoriteUseCase
 ) : BaseViewModel() {
 
-    val newsResult = MutableResult<List<News>>()
 
-    init {
-        getAllNews()
-    }
+    val list: LiveListResult<News> = getAllFavoriteUseCase(XmlNewsReq(COUNTRY, API_KEY))
+        .asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
 
-    private fun getAllNews() = viewModelScope.launch {
-        allNews.invoke(Unit).collectOn(newsResult)
-
-    }
 
     fun goToDetailNews(item: News) {
-        item.link?.let {
-            navigateTo(
-                FavoriteFragmentDirections.actionFavoriteFragmentToDetailNavigation(it)
-            )
+        when (item) {
+            is Article -> {
+                item.link?.let {
+                    navigateTo(
+                        FavoriteFragmentDirections.actionFavoriteFragmentToDetailNavigation(
+                            it, item.link,NewsType.ARTICLE
+                        )
+                    )
+                }            }
+            is Detail -> {
+                item.link?.let {
+                    navigateTo(
+                        FavoriteFragmentDirections.actionFavoriteFragmentToDetailNavigation(
+                            it, item.guid,NewsType.DETAIL
+                        )
+                    )
+                }            }
         }
     }
 
-    fun onFavoriteClicked(it: News) = viewModelScope.launch {
-        removeFavorite.invoke(it).collect()
-        getAllNews()
+    fun onFavoriteClicked(item: News) = viewModelScope.launch {
+        when (item) {
+            is Article -> {
+                deleteArticleFavoriteUseCase(item.link).collect()
+            }
+            is Detail -> {
+                deleteDetailFavoriteUseCase(item.guid).collect()
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ import ir.example.newstest.base.BaseAdapter
 import ir.example.newstest.domain.pojo.Article
 import kotlinx.android.synthetic.main.item_news_en.view.*
 
-class NewsEnAdapter : BaseAdapter<Article>(DIFF_CALLBACK) {
+class ArticleAdapter : BaseAdapter<Article>(DIFF_CALLBACK) {
 
     var onFavoriteClicked: ((article: Article) -> Unit)? = null
 
@@ -31,13 +31,6 @@ class NewsEnAdapter : BaseAdapter<Article>(DIFF_CALLBACK) {
         holder.itemView.img_favorite_en?.setOnClickListener {
             val item = getItem(holder.adapterPosition)
             onFavoriteClicked?.invoke(item)
-            if (item.isFavorite){
-                item.isFavorite = false
-                holder.itemView.img_favorite_en.setImageResource(R.drawable.ic_baseline_favorite_24)
-            }else{
-                item.isFavorite = true
-                holder.itemView.img_favorite_en.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-            }
         }
     }
 

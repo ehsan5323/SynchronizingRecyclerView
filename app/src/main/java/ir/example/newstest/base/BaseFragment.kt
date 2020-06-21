@@ -13,7 +13,8 @@ import ir.example.newstest.util.addNavigatorOn
 import ir.example.newstest.util.observeActions
 import javax.inject.Inject
 import androidx.navigation.fragment.findNavController
-
+import ir.example.newstest.network.ConnectionLiveData
+import androidx.lifecycle.observe
 
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> :
     DaggerFragment(), BaseView<VM, DB> {
@@ -71,5 +72,11 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> :
         addNavigatorOn(viewModel, findNavController())
     }
 
+    private fun checkInternetConnection() {
+        ConnectionLiveData.observe(this) { isConnected ->
+            onNetworkStateChanged(isConnected)
+        }
+    }
+    open fun onNetworkStateChanged(isConnected: Boolean) {}
 }
 

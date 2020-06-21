@@ -54,6 +54,8 @@ class FavoriteAdapter : BaseAdapter<News>(DIFF_CALLBACK) {
             if (item is Detail)
                 onFavoriteClicked?.invoke(item)
         }
+        holder.itemView.img_favorite_en?.setImageResource(R.drawable.ic_baseline_favorite_24)
+        holder.itemView.img_favorite_fa?.setImageResource(R.drawable.ic_baseline_favorite_24)
     }
 
 }

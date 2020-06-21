@@ -75,11 +75,11 @@
             android:background="?android:selectableItemBackgroundBorderless"
             android:contentDescription="@string/favorites"
             android:padding="4dp"
-            android:src="@{item.isFavorite ? @drawable/ic_baseline_favorite_24 : @drawable/ic_baseline_favorite_24}"
+            android:src="@{item.isFavorite ? @drawable/ic_baseline_favorite_24 : @drawable/ic_baseline_favorite_border_24}"
             android:tint="@color/red500"
             app:layout_constraintStart_toStartOf="@id/txt_description"
             app:layout_constraintTop_toBottomOf="@id/txt_description"
-            tools:src="@drawable/ic_baseline_favorite_24" />
+            tools:src="@drawable/ic_baseline_favorite_border_24" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

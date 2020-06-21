@@ -20,6 +20,12 @@
             <argument
                 android:name="newsLink"
                 app:argType="string" />
+            <argument
+                android:name="dbKey"
+                app:argType="string" />
+            <argument
+                android:name="newsType"
+                app:argType="ir.example.newstest.domain.pojo.NewsType" />
         </action>
     </fragment>
 

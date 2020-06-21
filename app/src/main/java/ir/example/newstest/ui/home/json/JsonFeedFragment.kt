@@ -12,7 +12,7 @@ class JsonFeedFragment : BaseFragment<JsonFeedViewModel, FragmentJsonFeedBinding
 
     override val layoutId: Int = R.layout.fragment_json_feed
 
-    private val adapter = NewsEnAdapter()
+    private val adapter = ArticleAdapter()
 
     override fun configEvents() {
         list_news.adapter = adapter
