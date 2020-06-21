@@ -51,8 +51,8 @@ object Deps {
     }
 
     object LifeCycles {
-        const val lifecycleExtensions =
-            "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycleVersion}"
+        const val viewModelKtx =
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
         const val runtimeKtx =
             "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycleVersion}"
         const val livedataKtx =
