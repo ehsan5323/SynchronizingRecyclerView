@@ -1,13 +1,9 @@
 package ir.example.newstest.domain.pojo
 
 import android.os.Parcelable
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-private const val TABLE_NAME = "news_en"
 
 data class NewsEn(
     @SerializedName("status")
@@ -18,31 +14,21 @@ data class NewsEn(
     val articles: List<Article>
 )
 
-@Entity(tableName = TABLE_NAME)
 @Parcelize
 data class Article(
-    @ColumnInfo(name = "author")
     @SerializedName("author")
-    val author: String,
-    @ColumnInfo(name = "title")
+    val author: String?,
     @SerializedName("title")
     override val title: String,
-    @ColumnInfo(name = "description")
     @SerializedName("description")
-    override val description: String,
-    @PrimaryKey
-    @ColumnInfo(name = "url")
+    override val description: String?,
     @SerializedName("url")
     override val link: String,
-    @ColumnInfo(name = "urlToImage")
     @SerializedName("urlToImage")
-    val image: String,
-    @ColumnInfo(name = "publishedAt")
+    val image: String?,
     @SerializedName("publishedAt")
     override val date: String,
-    @ColumnInfo(name = "content")
     @SerializedName("content")
-    val content: String,
-    @ColumnInfo(name = "isFavorite")
-    override var isFavorite: Boolean = false
+    val content: String?,
+    override var isFavorite: Boolean?
 ) : Parcelable, News
