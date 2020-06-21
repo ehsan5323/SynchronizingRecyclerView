@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import ir.example.newstest.application.NewsTestApp
 import ir.example.newstest.data.source.db.AppDataBase
-import ir.example.newstest.data.source.db.dao.NewsDao
+import ir.example.newstest.data.source.db.dao.FavoriteDao
 import javax.inject.Singleton
 
 @Module
@@ -20,7 +20,8 @@ object DatabaseModule {
     }
 
     @Provides
-    fun provideMovieDao(appDataBase: AppDataBase): NewsDao {
-        return appDataBase.newsDao()
+    fun provideFavoriteDao(db: AppDataBase): FavoriteDao {
+        return db.favoriteDao()
     }
+
 }
