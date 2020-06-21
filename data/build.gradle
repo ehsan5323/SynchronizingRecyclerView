@@ -33,7 +33,6 @@ dependencies {
     androidTestImplementation Deps.Test.testRunner
     androidTestImplementation Deps.Test.espresso
 
-    implementation Deps.LifeCycles.lifecycleExtensions
     implementation Deps.Dagger.dagger
     kapt Deps.Dagger.daggerCompiler
 
