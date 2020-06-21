@@ -9,7 +9,7 @@ import ir.example.newstest.domain.pojo.NewsType
 import ir.example.newstest.domain.pojo.XmlNewsReq
 import ir.example.newstest.domain.usecase.favorite.AddArticleFavoriteUseCase
 import ir.example.newstest.domain.usecase.favorite.DeleteArticleFavoriteUseCase
-import ir.example.newstest.domain.usecase.news.JsonNewsUseCase
+import ir.example.newstest.domain.usecase.news.GetJsonNewsUseCase
 import ir.example.newstest.ui.home.HomeFragmentDirections
 import ir.example.newstest.util.LiveListResult
 import kotlinx.coroutines.Dispatchers
@@ -21,12 +21,12 @@ const val COUNTRY = "us"
 const val API_KEY = "2d248e49b4d44d3d8c93462557529cba"
 
 class JsonFeedViewModel @Inject constructor(
-    jsonNewsUseCase: JsonNewsUseCase,
+    getJsonNewsUseCase: GetJsonNewsUseCase,
     private val addArticleFavoriteUseCase: AddArticleFavoriteUseCase,
     private val deleteArticleFavoriteUseCase: DeleteArticleFavoriteUseCase
 ) : BaseViewModel() {
 
-    val list: LiveListResult<News> = jsonNewsUseCase(XmlNewsReq(COUNTRY, API_KEY))
+    val list: LiveListResult<News> = getJsonNewsUseCase(XmlNewsReq(COUNTRY, API_KEY))
         .asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
 
     fun goToDetailNews(item: Article) {

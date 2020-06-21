@@ -11,7 +11,7 @@ import ir.example.newstest.domain.usecase.base.BaseUseCase
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 
-class JsonNewsUseCase @Inject constructor(
+class GetJsonNewsUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<XmlNewsReq, List<Article>>() {
 
