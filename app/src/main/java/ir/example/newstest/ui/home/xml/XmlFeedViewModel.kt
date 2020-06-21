@@ -1,78 +1,46 @@
 package ir.example.newstest.ui.home.xml
 
-import androidx.lifecycle.map
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import ir.example.newstest.base.BaseViewModel
-import ir.example.newstest.data.base.MutableResult
 import ir.example.newstest.domain.pojo.Detail
-import ir.example.newstest.domain.pojo.NewsFa
-import ir.example.newstest.domain.usecase.favorite.AddFavorite
-import ir.example.newstest.domain.usecase.favorite.RemoveFavorite
-import ir.example.newstest.domain.usecase.news.XmlNewsUseCase
-import javax.inject.Inject
-import ir.example.newstest.domain.base.Result
+import ir.example.newstest.domain.pojo.NewsType
+import ir.example.newstest.domain.usecase.favorite.AddDetailFavoriteUseCase
+import ir.example.newstest.domain.usecase.favorite.DeleteDetailFavoriteUseCase
+import ir.example.newstest.domain.usecase.news.GetXmlNewsUseCase
 import ir.example.newstest.ui.home.HomeFragmentDirections
-import ir.example.newstest.util.ktx.collectOn
+import ir.example.newstest.util.LiveListResult
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class XmlFeedViewModel @Inject constructor(
-    private val xmlNewsUseCase: XmlNewsUseCase,
-    private val addFavorite: AddFavorite,
-    private val removeFavorite: RemoveFavorite
+    getXmlNewsUseCase: GetXmlNewsUseCase,
+    private val addDetailFavoriteUseCase: AddDetailFavoriteUseCase,
+    private val deleteDetailFavoriteUseCase: DeleteDetailFavoriteUseCase
 ) : BaseViewModel() {
 
-    val newsResult = MutableResult<NewsFa>()
-    val newsList = MutableResult<List<Detail>>()
-
-
-    init {
-        getNews()
-
-        newsResult.observeForever {
-            when (it) {
-                is Result.Success -> {
-                    newsList.postValue(
-                        Result.Success(
-                            it.data.channel?.details ?: return@observeForever
-                        )
-                    )
-                }
-            }
-        }
-
-
-        val newsList =newsResult.map {
-            when(it){
-                is Result.Success->{
-                    return@map Result.Success(it.data.channel?.details)
-                }
-                else->{
-                    null
-                }
-            }
-        }
-    }
-
-    private fun getNews() = viewModelScope.launch {
-        xmlNewsUseCase.invoke(Unit).collectOn(newsResult)
-    }
+    val list: LiveListResult<Detail> = getXmlNewsUseCase(Unit)
+        .asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
 
 
     fun goToDetailNews(item: Detail) {
         item.link?.let {
             navigateTo(
-                HomeFragmentDirections.actionHomeFragmentToDetailNavigation(it)
+                HomeFragmentDirections.actionHomeFragmentToDetailNavigation(
+                    it,
+                    item.guid,
+                    NewsType.DETAIL
+                )
             )
         }
     }
 
-
-    fun onFavoriteClicked(it: Detail) = viewModelScope.launch {
-        if (it.isFavorite == true) {
-            removeFavorite.invoke(it).collect()
-        } else {
-            addFavorite.invoke(it).collect()
-        }
+    fun onFavoriteClicked(detail: Detail) = viewModelScope.launch {
+        if (detail.isFavorite == true)
+            deleteDetailFavoriteUseCase(detail.guid).collect()
+        else
+            addDetailFavoriteUseCase(detail.guid).collect()
     }
 }

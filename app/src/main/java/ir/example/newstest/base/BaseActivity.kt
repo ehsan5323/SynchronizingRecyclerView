@@ -6,9 +6,11 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import dagger.android.support.DaggerAppCompatActivity
+import ir.example.newstest.network.ConnectionLiveData
 import ir.example.newstest.util.addNavigatorOn
 import ir.example.newstest.util.observeActions
 import javax.inject.Inject
+import androidx.lifecycle.observe
 
 abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : DaggerAppCompatActivity(),
     BaseView<VM, DB> {
@@ -56,4 +58,11 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : DaggerAp
     private fun initNavigator() =
         addNavigatorOn(viewModel, Navigation.findNavController(this, navigationId))
 
+    private fun checkInternetConnection() {
+        ConnectionLiveData.observe(this) { isConnected ->
+            onNetworkStateChanged(isConnected)
+        }
+    }
+
+    open fun onNetworkStateChanged(isConnected: Boolean) {}
 }
