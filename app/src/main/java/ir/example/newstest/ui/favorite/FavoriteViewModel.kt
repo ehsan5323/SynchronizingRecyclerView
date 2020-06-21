@@ -29,21 +29,21 @@ class FavoriteViewModel @Inject constructor(
     fun goToDetailNews(item: News) {
         when (item) {
             is Article -> {
-                item.link?.let {
-                    navigateTo(
-                        FavoriteFragmentDirections.actionFavoriteFragmentToDetailNavigation(
-                            it, item.link,NewsType.ARTICLE
-                        )
+                navigateTo(
+                    FavoriteFragmentDirections.actionFavoriteFragmentToDetailNavigation(
+                        item.link, item.link, NewsType.ARTICLE
                     )
-                }            }
+                )
+            }
             is Detail -> {
                 item.link?.let {
                     navigateTo(
                         FavoriteFragmentDirections.actionFavoriteFragmentToDetailNavigation(
-                            it, item.guid,NewsType.DETAIL
+                            it, item.guid, NewsType.DETAIL
                         )
                     )
-                }            }
+                }
+            }
         }
     }
 

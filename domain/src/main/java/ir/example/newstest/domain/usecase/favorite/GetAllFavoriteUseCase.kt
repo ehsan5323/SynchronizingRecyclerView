@@ -11,7 +11,9 @@ import javax.inject.Inject
 class GetAllFavoriteUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<XmlNewsReq, List<News>>() {
+
     override fun invoke(params: XmlNewsReq): FlowListResult<News> {
+        //TODO: Due to its high complexity, it needs to be optimized
         return combine(
             newsRepository.getXmlNewsFromNetwork(),
             newsRepository.getJsonNewsFromNetwork(params),
@@ -31,45 +33,24 @@ class GetAllFavoriteUseCase @Inject constructor(
                                             val details = xmlNewsResult.data.channel?.details
                                                 ?: mutableListOf()
 
-//                                            val aaaa= details.filter { detail ->
-//                                                detail.guid == detailFavorite.data.forEach {  }
-//                                                detailFavorite.data.filter { database->
-//                                                    detail.guid==database.link }
-//                                            }
+                                            //TODO: The function have time complexity O(n2) and must be optimized
+                                            //TODO: time complexity by HashSet is O(n)
 
                                             detailFavorite.data.forEach { db ->
                                                 details.forEach { detail ->
                                                     if (db.link.equals(detail.guid))
                                                         list.add(detail)
-
                                                 }
-
-//                                                list.add(details.first { detail ->
-//                                                    detail.equals(db.link)
-//                                                })
                                             }
-
-
-
                                             articleFavorite.data.forEach { db ->
                                                 jsonNewsResult.data.articles.forEach { article ->
                                                     if (db.link.equals(article.link))
                                                         list.add(article)
                                                 }
                                             }
-
-//                                            list.addAll(
-//                                                details.map { detail->
-//                                                    detail.copy(isFavorite = detailFavorite.data.filter { it.link == detail.guid }.isNullOrEmpty().not())
-//                                                }
-//                                            )
-//                                            list.addAll(jsonNewsResult.data.articles.map { article ->
-//                                                article.copy(isFavorite = articleFavorite.data.filter { it.link == article.link }.isNullOrEmpty().not())
-//                                            })
                                             Result.Success(list)
 
                                         }
-
                                         is Result.Error -> Result.Error(detailFavorite.error)
                                         is Result.Loading -> Result.Loading
                                     }
