@@ -14,8 +14,8 @@ class GetXmlNewsUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<Unit, List<Detail>>() {
 
-    override fun invoke(params: Unit): FlowListResult<Detail> {
-        return newsRepository.getXmlNewsFromNetwork()
+    override fun invoke(params: Unit): FlowListResult<Detail> =
+        newsRepository.getXmlNewsFromNetwork()
             .combine(newsRepository.getDetailFlows()) { newsFa: Result<NewsFa>, favorites: Result<List<DetailFavorite>> ->
                 when (favorites) {
                     is Result.Success -> {
@@ -35,5 +35,4 @@ class GetXmlNewsUseCase @Inject constructor(
                     is Result.Loading -> Result.Loading
                 }
             }
-    }
 }

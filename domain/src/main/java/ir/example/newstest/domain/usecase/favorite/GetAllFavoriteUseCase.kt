@@ -6,7 +6,7 @@ import ir.example.newstest.domain.error.ErrorType
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.Detail
 import ir.example.newstest.domain.pojo.News
-import ir.example.newstest.domain.pojo.XmlNewsReq
+import ir.example.newstest.domain.pojo.req.XmlNewsReq
 import ir.example.newstest.domain.usecase.base.BaseUseCase
 import ir.example.newstest.domain.usecase.news.GetJsonNewsUseCase
 import ir.example.newstest.domain.usecase.news.GetXmlNewsUseCase
@@ -35,18 +35,12 @@ class GetAllFavoriteUseCase @Inject constructor(
                                 })
                                 Result.Success(list)
                             }
-                            is Result.Error -> {
-                                Result.Error(ApiException("", ErrorType.UNKNOWN, 1))
-                            }
+                            is Result.Error -> Result.Error(ApiException("", ErrorType.UNKNOWN, 1))
                             is Result.Loading -> Result.Loading
                         }
                     }
-                    is Result.Error -> {
-                        Result.Error(ApiException("", ErrorType.UNKNOWN, 1))
-                    }
-                    is Result.Loading -> {
-                        Result.Loading
-                    }
+                    is Result.Error -> Result.Error(ApiException("", ErrorType.UNKNOWN, 1))
+                    is Result.Loading -> Result.Loading
                 }
             }
     }

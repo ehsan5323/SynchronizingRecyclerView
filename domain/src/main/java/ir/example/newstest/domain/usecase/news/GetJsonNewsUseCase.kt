@@ -5,7 +5,7 @@ import ir.example.newstest.domain.base.Result
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.ArticleFavorite
 import ir.example.newstest.domain.pojo.NewsEn
-import ir.example.newstest.domain.pojo.XmlNewsReq
+import ir.example.newstest.domain.pojo.req.XmlNewsReq
 import ir.example.newstest.domain.repository.NewsRepository
 import ir.example.newstest.domain.usecase.base.BaseUseCase
 import kotlinx.coroutines.flow.combine
@@ -15,8 +15,8 @@ class GetJsonNewsUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<XmlNewsReq, List<Article>>() {
 
-    override fun invoke(params: XmlNewsReq): FlowListResult<Article> {
-        return newsRepository.getJsonNewsFromNetwork(params)
+    override fun invoke(params: XmlNewsReq): FlowListResult<Article> =
+        newsRepository.getJsonNewsFromNetwork(params)
             .combine(newsRepository.getArticleFlows()) { newsEn: Result<NewsEn>, favorites: Result<List<ArticleFavorite>> ->
                 when (favorites) {
                     is Result.Success -> {
@@ -35,6 +35,4 @@ class GetJsonNewsUseCase @Inject constructor(
                     is Result.Loading -> Result.Loading
                 }
             }
-    }
-
 }

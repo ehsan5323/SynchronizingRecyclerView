@@ -5,6 +5,7 @@ import ir.example.newstest.domain.base.FlowResult
 import kotlinx.coroutines.flow.Flow
 import ir.example.newstest.domain.base.Result
 import ir.example.newstest.domain.pojo.*
+import ir.example.newstest.domain.pojo.req.XmlNewsReq
 
 interface NewsRepository {
 

@@ -10,7 +10,6 @@ class AddArticleFavoriteUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<String, Unit>() {
 
-    override fun invoke(params: String): FlowResult<Unit> {
-        return newsRepository.addArticleFavorite(ArticleFavorite(params))
-    }
+    override fun invoke(params: String): FlowResult<Unit> =
+        newsRepository.addArticleFavorite(ArticleFavorite(params))
 }
