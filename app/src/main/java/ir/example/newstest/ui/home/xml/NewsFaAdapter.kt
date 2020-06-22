@@ -26,7 +26,6 @@ class NewsFaAdapter : BaseAdapter<Detail>(DIFF_CALLBACK) {
         return R.layout.item_news_fa
     }
 
-
     override fun onBindViewHolder(holder: DataBindingViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
         holder.itemView.img_favorite_fa?.setOnClickListener {

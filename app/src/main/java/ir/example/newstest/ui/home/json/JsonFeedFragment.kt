@@ -1,8 +1,8 @@
 package ir.example.newstest.ui.home.json
 
+import ir.example.newstest.R
 import ir.example.newstest.base.BaseFragment
 import ir.example.newstest.base.ViewModelScope
-import ir.example.newstest.R
 import ir.example.newstest.databinding.FragmentJsonFeedBinding
 import kotlinx.android.synthetic.main.fragment_xml_feed.*
 
@@ -16,16 +16,17 @@ class JsonFeedFragment : BaseFragment<JsonFeedViewModel, FragmentJsonFeedBinding
 
     override fun configEvents() {
         list_news.adapter = adapter
-        adapter.onItemClicked = { item, _ ->
-            viewModel.goToDetailNews(item)
-        }
-        adapter.onFavoriteClicked = {
-            viewModel.onFavoriteClicked(it)
+        adapter.apply {
+            onItemClicked = { item, _ ->
+                viewModel.goToDetailNews(item)
+            }
+            onFavoriteClicked = {
+                viewModel.onFavoriteClicked(it)
+            }
         }
     }
 
     override fun bindObservables() {
-
     }
 
     override fun initBinding() {

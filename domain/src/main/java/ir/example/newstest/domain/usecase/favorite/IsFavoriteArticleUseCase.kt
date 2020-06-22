@@ -20,12 +20,8 @@ class IsFavoriteArticleUseCase @Inject constructor(
                         Result.Success(true)
                     } else Result.Success(false)
                 }
-                is Result.Error -> {
-                    Result.Error(ApiException("", ErrorType.UNKNOWN, 0))
-                }
-                is Result.Loading -> {
-                    Result.Loading
-                }
+                is Result.Error -> Result.Error(ApiException("", ErrorType.UNKNOWN, 0))
+                is Result.Loading -> Result.Loading
             }
         }
     }

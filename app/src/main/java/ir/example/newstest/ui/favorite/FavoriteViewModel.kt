@@ -5,7 +5,11 @@ import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import ir.example.newstest.base.BaseViewModel
 import ir.example.newstest.domain.base.Result
-import ir.example.newstest.domain.pojo.*
+import ir.example.newstest.domain.pojo.Article
+import ir.example.newstest.domain.pojo.Detail
+import ir.example.newstest.domain.pojo.News
+import ir.example.newstest.domain.pojo.NewsType
+import ir.example.newstest.domain.pojo.req.XmlNewsReq
 import ir.example.newstest.domain.usecase.favorite.DeleteArticleFavoriteUseCase
 import ir.example.newstest.domain.usecase.favorite.DeleteDetailFavoriteUseCase
 import ir.example.newstest.domain.usecase.favorite.GetAllFavoriteUseCase
@@ -23,14 +27,11 @@ class FavoriteViewModel @Inject constructor(
     private val deleteDetailFavoriteUseCase: DeleteDetailFavoriteUseCase
 ) : BaseViewModel() {
 
-
     val list: LiveListResult<News> = getAllFavoriteUseCase(XmlNewsReq(COUNTRY, API_KEY))
         .asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
 
     val isEmpty = list.map {
-        if (it is Result.Success) {
-            it.data.isNullOrEmpty()
-        } else true
+        if (it is Result.Success) it.data.isNullOrEmpty() else true
     }
 
     fun goToDetailNews(item: News) {

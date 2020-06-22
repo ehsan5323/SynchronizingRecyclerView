@@ -9,5 +9,4 @@ import ir.example.newstest.util.ktx.show
 fun View.visibility(isVisible: Boolean?, isGone: Boolean?) {
     if (isVisible == true) show()
     else hide(isGone ?: true)
-
 }

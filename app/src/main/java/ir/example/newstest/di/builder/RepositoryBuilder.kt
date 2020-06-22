@@ -9,6 +9,6 @@ import ir.example.newstest.domain.repository.NewsRepository
 abstract class RepositoryBuilder {
 
     @Binds
-    abstract fun bindsNewsRepository(homeRepositoryImpl: NewsRepositoryImpl): NewsRepository
+    abstract fun bindsNewsRepository(newsRepositoryImpl: NewsRepositoryImpl): NewsRepository
 
 }

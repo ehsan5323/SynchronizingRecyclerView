@@ -12,20 +12,21 @@ class XmlFeedFragment : BaseFragment<XmlFeedViewModel, FragmentXmlFeedBinding>()
 
     override val layoutId: Int = R.layout.fragment_xml_feed
 
-    private val adapter=  NewsFaAdapter()
+    private val adapter = NewsFaAdapter()
 
     override fun configEvents() {
         list_news.adapter = adapter
-        adapter.onItemClicked = { item, _ ->
-            viewModel.goToDetailNews(item)
-        }
-        adapter.onFavoriteClicked = {
-            viewModel.onFavoriteClicked(it)
+        adapter.apply {
+            onItemClicked = { item, _ ->
+                viewModel.goToDetailNews(item)
+            }
+            onFavoriteClicked = {
+                viewModel.onFavoriteClicked(it)
+            }
         }
     }
 
     override fun bindObservables() {
-
     }
 
     override fun initBinding() {

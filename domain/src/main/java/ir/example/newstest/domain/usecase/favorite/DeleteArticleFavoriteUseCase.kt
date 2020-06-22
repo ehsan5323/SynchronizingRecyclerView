@@ -10,7 +10,7 @@ class DeleteArticleFavoriteUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<String, Unit>() {
 
-    override fun invoke(params: String): FlowResult<Unit> {
-        return newsRepository.deleteArticleFavorite(ArticleFavorite(params))
-    }
+    override fun invoke(params: String): FlowResult<Unit> =
+        newsRepository.deleteArticleFavorite(ArticleFavorite(params))
+
 }

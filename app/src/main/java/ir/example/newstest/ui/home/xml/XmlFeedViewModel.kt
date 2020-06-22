@@ -24,7 +24,6 @@ class XmlFeedViewModel @Inject constructor(
     val list: LiveListResult<Detail> = getXmlNewsUseCase(Unit)
         .asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
 
-
     fun goToDetailNews(item: Detail) {
         item.link?.let {
             navigateTo(
