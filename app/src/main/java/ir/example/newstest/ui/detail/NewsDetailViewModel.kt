@@ -1,15 +1,16 @@
 package ir.example.newstest.ui.detail
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import ir.example.newstest.base.BaseViewModel
 import ir.example.newstest.domain.base.Result
 import ir.example.newstest.domain.pojo.NewsType
 import ir.example.newstest.domain.usecase.favorite.*
+import ir.example.newstest.util.MutableLiveResult
+import ir.example.newstest.util.ktx.collectOn
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 class NewsDetailViewModel @Inject constructor(
     private val isFavoriteDetailUseCase: IsFavoriteDetailUseCase,
@@ -45,7 +46,8 @@ class NewsDetailViewModel @Inject constructor(
         }
     }
 
-    val isFavorite = MutableLiveData(false)
+    private val isFavoriteResult = MutableLiveResult<Boolean>()
+    val isFavorite = isFavoriteResult.map { if (it is Result.Success) it.data else false }
 
     private fun checkFavorite(newsType: NewsType) = viewModelScope.launch {
         when (newsType) {
@@ -59,23 +61,11 @@ class NewsDetailViewModel @Inject constructor(
     }
 
     private fun isFavoriteDetail() = viewModelScope.launch {
-        isFavoriteDetailUseCase(dbKey ?: return@launch).collect {
-            when (it) {
-                is Result.Success -> {
-                    isFavorite.value = it.data
-                }
-            }
-        }
+        isFavoriteDetailUseCase(dbKey ?: return@launch).collectOn(isFavoriteResult)
     }
 
     private fun isFavoriteArticle() = viewModelScope.launch {
-        isFavoriteArticleUseCase(dbKey ?: return@launch).collect {
-            when (it) {
-                is Result.Success -> {
-                    isFavorite.value = it.data
-                }
-            }
-        }
+        isFavoriteArticleUseCase(dbKey ?: return@launch).collectOn(isFavoriteResult)
     }
 
     fun setArgs(args: NewsDetailFragmentArgs) {
