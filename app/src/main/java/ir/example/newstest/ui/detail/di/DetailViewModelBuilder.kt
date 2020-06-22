@@ -13,6 +13,6 @@ abstract class DetailViewModelBuilder {
     @Binds
     @IntoMap
     @ViewModelKey(NewsDetailViewModel::class)
-    abstract fun bindNewsDetailViewModel(homeViewModel: NewsDetailViewModel): ViewModel
+    abstract fun bindNewsDetailViewModel(newsDetailViewModel: NewsDetailViewModel): ViewModel
 
 }

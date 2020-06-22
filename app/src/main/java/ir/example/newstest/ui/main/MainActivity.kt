@@ -20,7 +20,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     }
 
     override fun bindObservables() {
-
     }
 
     override fun initBinding() {

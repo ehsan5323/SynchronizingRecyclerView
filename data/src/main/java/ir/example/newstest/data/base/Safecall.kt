@@ -27,9 +27,9 @@ private suspend fun <T> safeCall(callback: suspend () -> T) = withContext(Dispat
 fun <T> Flow<T>.resultFlow(cond: ((T) -> Boolean)? = null): FlowResult<T> {
     return onStart {
         Result.Loading
-    }.map {data ->
+    }.map { data ->
         if (cond?.let { cond(data) } != false) Result.Success(data)
-        else Result.Error(ApiException("sss", ErrorType.CLIENT, -1))
+        else Result.Error(ApiException("", ErrorType.CLIENT, -1))
     }.catch { cause: Throwable ->
         Result.Error(ApiException(cause.localizedMessage ?: "", ErrorType.CLIENT, -1))
     }

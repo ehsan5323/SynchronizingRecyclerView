@@ -16,16 +16,18 @@ class NewsDetailFragment : BaseFragment<NewsDetailViewModel, FragmentDetailNewsB
     private val args: NewsDetailFragmentArgs by navArgs()
 
     override fun configEvents() {
-        my_web_view.webViewClient =
-            MyWebViewClient()
-        my_web_view.loadUrl(args.newsLink)
-        viewModel.newsType =args.newsType
-
-            viewModel.setArgs(args)
+        my_web_view.apply {
+            webViewClient =
+                MyWebViewClient()
+            loadUrl(args.newsLink)
+        }
+        viewModel.apply {
+            newsType = args.newsType
+            setArgs(args)
+        }
     }
 
     override fun bindObservables() {
-
     }
 
     override fun initBinding() {

@@ -6,7 +6,7 @@ import ir.example.newstest.base.BaseViewModel
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.pojo.NewsType
-import ir.example.newstest.domain.pojo.XmlNewsReq
+import ir.example.newstest.domain.pojo.req.XmlNewsReq
 import ir.example.newstest.domain.usecase.favorite.AddArticleFavoriteUseCase
 import ir.example.newstest.domain.usecase.favorite.DeleteArticleFavoriteUseCase
 import ir.example.newstest.domain.usecase.news.GetJsonNewsUseCase

@@ -27,21 +27,13 @@ class NewsDetailViewModel @Inject constructor(
     fun onFavoriteClicked() = viewModelScope.launch {
         if (isFavorite.value == true) {
             when (newsType) {
-                NewsType.DETAIL -> {
-                    deleteDetailFavoriteUseCase(dbKey ?: return@launch).collect()
-                }
-                NewsType.ARTICLE -> {
-                    deleteArticleFavoriteUseCase(dbKey ?: return@launch).collect()
-                }
+                NewsType.DETAIL -> deleteDetailFavoriteUseCase(dbKey ?: return@launch).collect()
+                NewsType.ARTICLE -> deleteArticleFavoriteUseCase(dbKey ?: return@launch).collect()
             }
         } else {
             when (newsType) {
-                NewsType.DETAIL -> {
-                    addDetailFavoriteUseCase(dbKey ?: return@launch).collect()
-                }
-                NewsType.ARTICLE -> {
-                    addArticleFavoriteUseCase(dbKey ?: return@launch).collect()
-                }
+                NewsType.DETAIL -> addDetailFavoriteUseCase(dbKey ?: return@launch).collect()
+                NewsType.ARTICLE -> addArticleFavoriteUseCase(dbKey ?: return@launch).collect()
             }
         }
     }
@@ -51,12 +43,8 @@ class NewsDetailViewModel @Inject constructor(
 
     private fun checkFavorite(newsType: NewsType) = viewModelScope.launch {
         when (newsType) {
-            NewsType.DETAIL -> {
-                isFavoriteDetail()
-            }
-            NewsType.ARTICLE -> {
-                isFavoriteArticle()
-            }
+            NewsType.DETAIL -> isFavoriteDetail()
+            NewsType.ARTICLE -> isFavoriteArticle()
         }
     }
 

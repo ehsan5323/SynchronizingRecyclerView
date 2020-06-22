@@ -6,7 +6,11 @@ import ir.example.newstest.data.restful.NewsXmlApi
 import ir.example.newstest.data.source.db.dao.FavoriteDao
 import ir.example.newstest.domain.base.FlowListResult
 import ir.example.newstest.domain.base.FlowResult
-import ir.example.newstest.domain.pojo.*
+import ir.example.newstest.domain.pojo.ArticleFavorite
+import ir.example.newstest.domain.pojo.DetailFavorite
+import ir.example.newstest.domain.pojo.NewsEn
+import ir.example.newstest.domain.pojo.NewsFa
+import ir.example.newstest.domain.pojo.req.XmlNewsReq
 import ir.example.newstest.domain.repository.NewsRepository
 import javax.inject.Inject
 

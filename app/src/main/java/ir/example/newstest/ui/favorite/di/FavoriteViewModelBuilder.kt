@@ -13,6 +13,6 @@ abstract class FavoriteViewModelBuilder {
     @Binds
     @IntoMap
     @ViewModelKey(FavoriteViewModel::class)
-    abstract fun bindHomeViewModel(homeViewModel: FavoriteViewModel): ViewModel
+    abstract fun bindFavoriteViewModel(favoriteViewModel: FavoriteViewModel): ViewModel
 
 }

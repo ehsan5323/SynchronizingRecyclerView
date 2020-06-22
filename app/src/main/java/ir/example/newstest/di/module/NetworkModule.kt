@@ -37,9 +37,11 @@ object NetworkModule {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             builder.addInterceptor(loggingInterceptor)
         }
-        builder.connectTimeout(20L, TimeUnit.SECONDS)
-        builder.readTimeout(20L, TimeUnit.SECONDS)
-        builder.writeTimeout(20L, TimeUnit.SECONDS)
+        builder.apply {
+            connectTimeout(20L, TimeUnit.SECONDS)
+            readTimeout(20L, TimeUnit.SECONDS)
+            writeTimeout(20L, TimeUnit.SECONDS)
+        }
         return builder.build()
     }
 
@@ -65,13 +67,13 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideXmlService(@RetrofitXmlQualifier retrofit: Retrofit): NewsXmlApi {
+    fun provideXmlApi(@RetrofitXmlQualifier retrofit: Retrofit): NewsXmlApi {
         return retrofit.create(NewsXmlApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun provideJsonService(@RetrofitJsonQualifier retrofit: Retrofit): NewsJsonApi {
+    fun provideJsonApi(@RetrofitJsonQualifier retrofit: Retrofit): NewsJsonApi {
         return retrofit.create(NewsJsonApi::class.java)
     }
 }

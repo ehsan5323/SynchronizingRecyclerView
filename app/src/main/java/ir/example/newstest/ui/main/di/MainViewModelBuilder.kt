@@ -13,6 +13,6 @@ abstract class MainViewModelBuilder {
     @Binds
     @IntoMap
     @ViewModelKey(MainViewModel::class)
-    abstract fun bindLoginSignUpViewModel(mainActivityViewModel: MainViewModel): ViewModel
+    abstract fun bindLoginSignUpViewModel(mainViewModel: MainViewModel): ViewModel
 
 }
