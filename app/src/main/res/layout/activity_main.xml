@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             app:itemIconTint="@drawable/bottom_navigation_colors"
-            app:labelVisibilityMode="unlabeled"
+            app:labelVisibilityMode="auto"
             app:layout_constraintBottom_toBottomOf="parent"
             app:menu="@menu/main_bottom_navigation" />
 

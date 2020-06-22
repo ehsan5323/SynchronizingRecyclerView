@@ -22,8 +22,8 @@ class HomePagerAdapter(fm: FragmentManager) :
 
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
-            0 -> "Json Feed"
-            else -> return "Xml Feed"
+            0 -> "Json News"
+            else -> return "Xml News"
 
         }
     }

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">NewsTest</string>
     <string name="home">home</string>
+    <string name="NewsList">NewsList</string>
     <string name="favorites">favorites</string>
+    <string name="your_favorite_list_empty">Your Favorite List Is Empty</string>
 </resources>
