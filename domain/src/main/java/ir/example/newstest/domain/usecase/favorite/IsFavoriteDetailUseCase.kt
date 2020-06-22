@@ -12,6 +12,7 @@ import javax.inject.Inject
 class IsFavoriteDetailUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<String, Boolean>() {
+
     override fun invoke(params: String): FlowResult<Boolean> =
         newsRepository.getDetailFlows().map {
             when (it) {

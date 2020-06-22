@@ -19,8 +19,8 @@ class GetAllFavoriteUseCase @Inject constructor(
     private val getJsonNewsUseCase: GetJsonNewsUseCase
 ) : BaseUseCase<XmlNewsReq, List<News>>() {
 
-    override fun invoke(params: XmlNewsReq): Flow<Result<List<News>>> {
-        return getXmlNewsUseCase(Unit)
+    override fun invoke(params: XmlNewsReq): Flow<Result<List<News>>> =
+        getXmlNewsUseCase(Unit)
             .combine(getJsonNewsUseCase(params)) { favoriteXml: Result<List<Detail>>, favoriteJson: Result<List<Article>> ->
                 when (favoriteXml) {
                     is Result.Success -> {
@@ -43,5 +43,4 @@ class GetAllFavoriteUseCase @Inject constructor(
                     is Result.Loading -> Result.Loading
                 }
             }
-    }
 }
