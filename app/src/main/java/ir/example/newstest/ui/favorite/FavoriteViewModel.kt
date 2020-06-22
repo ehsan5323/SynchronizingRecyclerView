@@ -31,7 +31,7 @@ class FavoriteViewModel @Inject constructor(
         .asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
 
     val isEmpty = list.map {
-        if (it is Result.Success) it.data.isNullOrEmpty() else true
+        if (it is Result.Success) it.data.isEmpty() else false
     }
 
     fun goToDetailNews(item: News) {
@@ -57,12 +57,8 @@ class FavoriteViewModel @Inject constructor(
 
     fun onFavoriteClicked(item: News) = viewModelScope.launch {
         when (item) {
-            is Article -> {
-                deleteArticleFavoriteUseCase(item.link).collect()
-            }
-            is Detail -> {
-                deleteDetailFavoriteUseCase(item.guid).collect()
-            }
+            is Article -> deleteArticleFavoriteUseCase(item.link).collect()
+            is Detail -> deleteDetailFavoriteUseCase(item.guid).collect()
         }
     }
 }

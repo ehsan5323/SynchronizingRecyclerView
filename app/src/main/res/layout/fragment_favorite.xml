@@ -31,11 +31,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/your_favorite_list_empty"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:visibility="@{vm.isEmpty}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loading="@{vm.list}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
