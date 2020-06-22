@@ -12,8 +12,9 @@ import javax.inject.Inject
 class IsFavoriteArticleUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) : BaseUseCase<String, Boolean>() {
-    override fun invoke(params: String): FlowResult<Boolean> {
-        return newsRepository.getArticleFlows().map {
+
+    override fun invoke(params: String): FlowResult<Boolean> =
+        newsRepository.getArticleFlows().map {
             when (it) {
                 is Result.Success -> {
                     if (it.data.firstOrNull { detail -> detail.link == params } != null) {
@@ -24,6 +25,5 @@ class IsFavoriteArticleUseCase @Inject constructor(
                 is Result.Loading -> Result.Loading
             }
         }
-    }
 }
 

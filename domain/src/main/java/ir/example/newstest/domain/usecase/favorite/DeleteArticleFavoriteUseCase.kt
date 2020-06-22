@@ -12,5 +12,4 @@ class DeleteArticleFavoriteUseCase @Inject constructor(
 
     override fun invoke(params: String): FlowResult<Unit> =
         newsRepository.deleteArticleFavorite(ArticleFavorite(params))
-
 }
