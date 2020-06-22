@@ -15,41 +15,30 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <TextView
-            android:id="@+id/txt_favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/favorites"
-            android:textColor="@color/blue600"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/img_favorite"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/img_favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?android:selectableItemBackgroundBorderless"
-            android:contentDescription="@string/favorites"
-            android:padding="4dp"
-            android:onClick="@{()->vm.onFavoriteClicked()}"
-            android:src="@{vm.isFavorite ? @drawable/ic_baseline_favorite_24 : @drawable/ic_baseline_favorite_border_24 }"
-            android:tint="@color/red500"
-            app:layout_constraintEnd_toStartOf="@id/txt_favorite"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txt_favorite"
-            tools:src="@drawable/ic_baseline_favorite_border_24" />
-
-
         <WebView
             android:id="@+id/my_web_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_favorite" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/img_favorite"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/favorite_background_shape"
+            android:contentDescription="@string/favorites"
+            android:onClick="@{()->vm.onFavoriteClicked()}"
+            android:src="@{vm.isFavorite ? @drawable/ic_baseline_favorite_24 : @drawable/ic_baseline_favorite_border_24 }"
+            android:tint="@color/red500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9"
+            tools:src="@drawable/ic_baseline_favorite_border_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
