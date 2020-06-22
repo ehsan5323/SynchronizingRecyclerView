@@ -43,7 +43,6 @@ class NewsDetailViewModel @Inject constructor(
                 }
             }
         }
-        checkFavorite(newsType)
     }
 
     val isFavorite = MutableLiveData(false)
