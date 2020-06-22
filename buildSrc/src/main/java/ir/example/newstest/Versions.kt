@@ -16,7 +16,7 @@ object Versions {
     const val retrofitVersion = "2.6.0"
     const val okHttpVersion = "3.12.0"
     const val recyclerViewVersion = "1.1.0"
-    const val googleMaterialVersion = "1.1.0-alpha10"
+    const val googleMaterialVersion = "1.2.0-alpha06"
     const val multidexVersion = "1.0.3"
     const val koinVersion = "2.0.0-GA"
     const val junitVersion = "4.12"
