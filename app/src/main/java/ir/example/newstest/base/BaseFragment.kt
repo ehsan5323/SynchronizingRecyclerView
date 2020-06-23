@@ -50,6 +50,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> :
         bindObservables()
         initActions()
         initNavigator()
+        checkInternetConnection()
         return binding?.root ?: View(context)
     }
 
