@@ -4,7 +4,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import ir.example.newstest.base.BaseViewModel
-import ir.example.newstest.domain.base.Result
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.Detail
 import ir.example.newstest.domain.pojo.News
@@ -13,6 +12,7 @@ import ir.example.newstest.domain.pojo.req.XmlNewsReq
 import ir.example.newstest.domain.usecase.favorite.DeleteArticleFavoriteUseCase
 import ir.example.newstest.domain.usecase.favorite.DeleteDetailFavoriteUseCase
 import ir.example.newstest.domain.usecase.favorite.GetAllFavoriteUseCase
+import ir.example.newstest.domain.util.Result
 import ir.example.newstest.ui.home.json.API_KEY
 import ir.example.newstest.ui.home.json.COUNTRY
 import ir.example.newstest.util.LiveListResult

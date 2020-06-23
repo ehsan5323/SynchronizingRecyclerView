@@ -1,15 +1,15 @@
 package ir.example.newstest.domain.usecase.favorite
 
-import ir.example.newstest.domain.base.Result
+import ir.example.newstest.domain.base.BaseUseCase
 import ir.example.newstest.domain.error.ApiException
 import ir.example.newstest.domain.error.ErrorType
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.Detail
 import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.pojo.req.XmlNewsReq
-import ir.example.newstest.domain.usecase.base.BaseUseCase
 import ir.example.newstest.domain.usecase.news.GetJsonNewsUseCase
 import ir.example.newstest.domain.usecase.news.GetXmlNewsUseCase
+import ir.example.newstest.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject

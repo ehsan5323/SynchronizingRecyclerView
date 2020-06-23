@@ -2,7 +2,7 @@ package ir.example.newstest.util
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ir.example.newstest.domain.base.Result
+import ir.example.newstest.domain.util.Result
 
 typealias MutableLiveResult<T> = MutableLiveData<Result<T>>
 typealias LiveResult<T> = LiveData<Result<T>>

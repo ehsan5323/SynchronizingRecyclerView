@@ -1,4 +1,4 @@
-package ir.example.newstest.domain.base
+package ir.example.newstest.domain.util
 
 import kotlinx.coroutines.flow.Flow
 

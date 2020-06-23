@@ -3,9 +3,9 @@ package ir.example.newstest.ui.detail
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import ir.example.newstest.base.BaseViewModel
-import ir.example.newstest.domain.base.Result
 import ir.example.newstest.domain.pojo.NewsType
 import ir.example.newstest.domain.usecase.favorite.*
+import ir.example.newstest.domain.util.Result
 import ir.example.newstest.util.MutableLiveResult
 import ir.example.newstest.util.ktx.collectOn
 import kotlinx.coroutines.flow.collect

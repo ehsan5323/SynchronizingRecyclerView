@@ -1,6 +1,6 @@
-package ir.example.newstest.domain.usecase.base
+package ir.example.newstest.domain.base
 
-import ir.example.newstest.domain.base.Result
+import ir.example.newstest.domain.util.Result
 import kotlinx.coroutines.flow.Flow
 
 abstract class BaseUseCase<T, W> {

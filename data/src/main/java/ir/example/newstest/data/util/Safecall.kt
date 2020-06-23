@@ -1,10 +1,10 @@
-package ir.example.newstest.data.base
+package ir.example.newstest.data.util
 
-import ir.example.newstest.domain.base.FlowResult
-import ir.example.newstest.domain.base.Result
 import ir.example.newstest.domain.error.ApiException
 import ir.example.newstest.domain.error.ErrorType
 import ir.example.newstest.domain.error.handleError
+import ir.example.newstest.domain.util.FlowResult
+import ir.example.newstest.domain.util.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext

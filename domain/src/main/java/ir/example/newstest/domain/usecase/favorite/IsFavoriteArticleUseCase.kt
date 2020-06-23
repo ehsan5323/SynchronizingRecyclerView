@@ -1,11 +1,11 @@
 package ir.example.newstest.domain.usecase.favorite
 
-import ir.example.newstest.domain.base.FlowResult
-import ir.example.newstest.domain.base.Result
+import ir.example.newstest.domain.base.BaseUseCase
 import ir.example.newstest.domain.error.ApiException
 import ir.example.newstest.domain.error.ErrorType
 import ir.example.newstest.domain.repository.NewsRepository
-import ir.example.newstest.domain.usecase.base.BaseUseCase
+import ir.example.newstest.domain.util.FlowResult
+import ir.example.newstest.domain.util.Result
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
