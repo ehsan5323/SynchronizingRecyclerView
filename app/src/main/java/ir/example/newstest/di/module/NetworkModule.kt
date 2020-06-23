@@ -5,18 +5,26 @@ import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import ir.example.newstest.BuildConfig
-import ir.example.newstest.data.qualifire.RetrofitJsonQualifier
-import ir.example.newstest.data.qualifire.RetrofitXmlQualifier
+import ir.example.newstest.application.NewsTestApp
+import ir.example.newstest.data.di.qualifire.RetrofitJsonQualifier
+import ir.example.newstest.data.di.qualifire.RetrofitXmlQualifier
 import ir.example.newstest.data.restful.NewsJsonApi
 import ir.example.newstest.data.restful.NewsXmlApi
+import ir.example.newstest.network.CacheInterceptor
+import ir.example.newstest.network.OfflineCacheInterceptor
 import ir.example.newstest.util.SecretFields
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
+import java.io.File
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
+private const val CACHE_NAME = "network_cache"
+private const val CACHE_SIZE = 10 * 1024 * 1024L // 10MB
 
 @Module
 object NetworkModule {
@@ -24,13 +32,19 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideGson(): Gson {
-        return GsonBuilder()
-            .create()
+        return GsonBuilder().create()
+    }
+
+    @Provides
+    fun provideCache(application: NewsTestApp): Cache {
+        return Cache(File(application.cacheDir, CACHE_NAME).apply {
+            if (!exists()) mkdir()
+        }, CACHE_SIZE)
     }
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(cache: Cache): OkHttpClient {
         val builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             val loggingInterceptor = HttpLoggingInterceptor()
@@ -38,6 +52,9 @@ object NetworkModule {
             builder.addInterceptor(loggingInterceptor)
         }
         builder.apply {
+            addNetworkInterceptor(CacheInterceptor())
+            addInterceptor(OfflineCacheInterceptor())
+            cache(cache)
             connectTimeout(20L, TimeUnit.SECONDS)
             readTimeout(20L, TimeUnit.SECONDS)
             writeTimeout(20L, TimeUnit.SECONDS)
