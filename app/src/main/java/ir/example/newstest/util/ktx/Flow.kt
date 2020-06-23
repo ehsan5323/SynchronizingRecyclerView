@@ -1,6 +1,6 @@
 package ir.example.newstest.util.ktx
 
-import ir.example.newstest.domain.base.Result
+import ir.example.newstest.domain.util.Result
 import ir.example.newstest.util.MutableLiveResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

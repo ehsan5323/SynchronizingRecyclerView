@@ -1,13 +1,13 @@
 package ir.example.newstest.domain.usecase.news
 
-import ir.example.newstest.domain.base.FlowListResult
-import ir.example.newstest.domain.base.Result
+import ir.example.newstest.domain.base.BaseUseCase
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.ArticleFavorite
 import ir.example.newstest.domain.pojo.NewsEn
 import ir.example.newstest.domain.pojo.req.XmlNewsReq
 import ir.example.newstest.domain.repository.NewsRepository
-import ir.example.newstest.domain.usecase.base.BaseUseCase
+import ir.example.newstest.domain.util.FlowListResult
+import ir.example.newstest.domain.util.Result
 import kotlinx.coroutines.flow.combine
 import javax.inject.Inject
 

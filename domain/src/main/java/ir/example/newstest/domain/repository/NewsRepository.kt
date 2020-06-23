@@ -1,11 +1,14 @@
 package ir.example.newstest.domain.repository
 
-import ir.example.newstest.domain.base.FlowListResult
-import ir.example.newstest.domain.base.FlowResult
-import kotlinx.coroutines.flow.Flow
-import ir.example.newstest.domain.base.Result
-import ir.example.newstest.domain.pojo.*
+import ir.example.newstest.domain.pojo.ArticleFavorite
+import ir.example.newstest.domain.pojo.DetailFavorite
+import ir.example.newstest.domain.pojo.NewsEn
+import ir.example.newstest.domain.pojo.NewsFa
 import ir.example.newstest.domain.pojo.req.XmlNewsReq
+import ir.example.newstest.domain.util.FlowListResult
+import ir.example.newstest.domain.util.FlowResult
+import ir.example.newstest.domain.util.Result
+import kotlinx.coroutines.flow.Flow
 
 interface NewsRepository {
 

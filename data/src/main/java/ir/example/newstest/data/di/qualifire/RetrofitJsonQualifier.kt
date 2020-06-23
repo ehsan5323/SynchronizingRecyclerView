@@ -1,5 +1,4 @@
-package ir.example.newstest.data.qualifire
-import javax.inject.Inject;
+package ir.example.newstest.data.di.qualifire
 
 import javax.inject.Qualifier
 
