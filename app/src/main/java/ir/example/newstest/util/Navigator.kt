@@ -14,7 +14,6 @@ import ir.example.newstest.base.BaseViewModel
 sealed class NavigationCommand {
     data class To(val directions: NavDirections) : NavigationCommand()
     object Back : NavigationCommand()
-    data class BackTo(val destinationId: Int, val inclusive: Boolean) : NavigationCommand()
 }
 
 fun LifecycleOwner.addNavigatorOn(
@@ -25,12 +24,6 @@ fun LifecycleOwner.addNavigatorOn(
         when (command) {
             is NavigationCommand.To ->
                 navController.navigate(command.directions)
-            is NavigationCommand.Back ->
-                navController.popBackStack()
-            is NavigationCommand.BackTo ->
-                navController.popBackStack(command.destinationId, command.inclusive)
-
         }
-
     }
 }

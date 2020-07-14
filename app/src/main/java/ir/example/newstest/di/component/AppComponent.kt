@@ -8,7 +8,6 @@ import dagger.android.support.AndroidSupportInjectionModule
 import ir.example.newstest.application.NewsTestApp
 import ir.example.newstest.di.builder.ActivityBuilder
 import ir.example.newstest.di.module.AppModule
-import ir.example.newstest.di.module.DatabaseModule
 import ir.example.newstest.di.module.NetworkModule
 import javax.inject.Singleton
 
@@ -18,7 +17,6 @@ import javax.inject.Singleton
         (AndroidSupportInjectionModule::class),
         (AppModule::class),
         (NetworkModule::class),
-        (DatabaseModule::class),
         (ActivityBuilder::class)]
 )
 interface AppComponent : AndroidInjector<NewsTestApp> {

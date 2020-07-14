@@ -9,26 +9,6 @@
         android:id="@+id/homeFragment"
         android:name="ir.example.newstest.ui.home.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_detail_navigation"
-            app:destination="@id/detail_navigation"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
-            <argument
-                android:name="newsLink"
-                app:argType="string" />
-            <argument
-                android:name="dbKey"
-                app:argType="string" />
-            <argument
-                android:name="newsType"
-                app:argType="ir.example.newstest.domain.pojo.NewsType" />
-        </action>
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
-    <include app:graph="@navigation/favorite_navigation" />
-    <include app:graph="@navigation/detail_navigation" />
 </navigation>

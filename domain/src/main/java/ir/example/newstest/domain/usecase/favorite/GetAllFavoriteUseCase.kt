@@ -27,12 +27,8 @@ class GetAllFavoriteUseCase @Inject constructor(
                         when (favoriteJson) {
                             is Result.Success -> {
                                 val list = mutableListOf<News>()
-                                list.addAll(favoriteXml.data.filter {
-                                    it.isFavorite == true
-                                })
-                                list.addAll(favoriteJson.data.filter {
-                                    it.isFavorite == true
-                                })
+                                list.addAll(favoriteXml.data)
+                                list.addAll(favoriteJson.data)
                                 Result.Success(list)
                             }
                             is Result.Error -> Result.Error(ApiException("", ErrorType.UNKNOWN, 1))

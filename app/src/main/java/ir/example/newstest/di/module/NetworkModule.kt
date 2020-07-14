@@ -10,8 +10,6 @@ import ir.example.newstest.data.di.qualifire.RetrofitJsonQualifier
 import ir.example.newstest.data.di.qualifire.RetrofitXmlQualifier
 import ir.example.newstest.data.restful.NewsJsonApi
 import ir.example.newstest.data.restful.NewsXmlApi
-import ir.example.newstest.network.CacheInterceptor
-import ir.example.newstest.network.OfflineCacheInterceptor
 import ir.example.newstest.util.SecretFields
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -35,16 +33,9 @@ object NetworkModule {
         return GsonBuilder().create()
     }
 
-    @Provides
-    fun provideCache(application: NewsTestApp): Cache {
-        return Cache(File(application.cacheDir, CACHE_NAME).apply {
-            if (!exists()) mkdir()
-        }, CACHE_SIZE)
-    }
-
     @Singleton
     @Provides
-    fun provideOkHttpClient(cache: Cache): OkHttpClient {
+    fun provideOkHttpClient(): OkHttpClient {
         val builder = OkHttpClient.Builder()
         if (BuildConfig.DEBUG) {
             val loggingInterceptor = HttpLoggingInterceptor()
@@ -52,9 +43,6 @@ object NetworkModule {
             builder.addInterceptor(loggingInterceptor)
         }
         builder.apply {
-            addNetworkInterceptor(CacheInterceptor())
-            addInterceptor(OfflineCacheInterceptor())
-            cache(cache)
             connectTimeout(20L, TimeUnit.SECONDS)
             readTimeout(20L, TimeUnit.SECONDS)
             writeTimeout(20L, TimeUnit.SECONDS)

@@ -16,7 +16,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     override val navigationId = R.id.navigation_fragment
 
     override fun configEvents() {
-        setupNavigation()
     }
 
     override fun bindObservables() {
@@ -28,11 +27,6 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
             vm = viewModel
             executePendingBindings()
         }
-    }
-
-    private fun setupNavigation() {
-        val navController = findNavController(R.id.navigation_fragment)
-        bottomNavigationMain.setupWithNavController(navController)
     }
 
 }

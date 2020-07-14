@@ -49,15 +49,6 @@ open class Event<out T>(private val content: T) {
     }
 }
 
-class StateLessEvent : Event<Any>("")
-
-
-/**
- * An [Observer] for [Event]s, simplifying the pattern of checking if the [Event]'s content has
- * already been consumed.
- *
- * [onEventUnconsumedContent] is *only* called if the [Event]'s contents has not been consumed.
- */
 class EventObserver<T>(private val onEventUnconsumedContent: (T) -> Unit) : Observer<Event<T>> {
     override fun onChanged(event: Event<T>?) {
         event?.consume()?.run(onEventUnconsumedContent)
@@ -70,17 +61,6 @@ inline fun <T> LiveData<Event<T>>.observeEvent(
     crossinline onChanged: (T) -> Unit
 ): EventObserver<T> {
     return EventObserver<T> { t -> onChanged.invoke(t) }.apply {
-        observe(owner, this)
-    }
-}
-
-
-@MainThread
-inline fun LiveData<StateLessEvent>.observeEvent(
-    owner: LifecycleOwner,
-    crossinline onChanged: () -> Unit
-): EventObserver<Any> {
-    return EventObserver<Any> { onChanged.invoke() }.apply {
         observe(owner, this)
     }
 }

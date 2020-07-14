@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
-                android:lines="3"
+                android:lines="1"
                 android:text="@{item.description}"
                 app:layout_constraintEnd_toEndOf="@+id/txt_title"
                 app:layout_constraintStart_toStartOf="@id/txt_title"

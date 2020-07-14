@@ -7,14 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import dagger.android.support.DaggerFragment
 import ir.example.newstest.base.ViewModelScope.ACTIVITY
 import ir.example.newstest.base.ViewModelScope.FRAGMENT
-import ir.example.newstest.util.ConnectionLiveData
 import ir.example.newstest.util.addNavigatorOn
-import ir.example.newstest.util.observeActions
 import javax.inject.Inject
 
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> :
@@ -48,9 +45,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> :
         init(inflater, container)
         initBinding()
         bindObservables()
-        initActions()
         initNavigator()
-        checkInternetConnection()
         return binding?.root ?: View(context)
     }
 
@@ -68,16 +63,8 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> :
         binding = null
     }
 
-    private fun initActions() = observeActions(viewModel)
-
     private fun initNavigator() {
         addNavigatorOn(viewModel, findNavController())
-    }
-
-    private fun checkInternetConnection() {
-        ConnectionLiveData.observe(this) { isConnected ->
-            onNetworkStateChanged(isConnected)
-        }
     }
     open fun onNetworkStateChanged(isConnected: Boolean) {}
 }
