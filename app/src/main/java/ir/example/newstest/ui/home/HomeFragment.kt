@@ -11,8 +11,6 @@ import ir.example.newstest.R
 import ir.example.newstest.databinding.FragmentHomeBinding
 import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.util.Result
-import ir.example.newstest.ui.home.json.ArticleAdapter
-import ir.example.newstest.ui.home.json.SeasonChanger
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.list_news
 

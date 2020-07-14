@@ -1,4 +1,4 @@
-package ir.example.newstest.ui.home.json
+package ir.example.newstest.ui.home
 
 import androidx.recyclerview.widget.DiffUtil
 import ir.example.newstest.R

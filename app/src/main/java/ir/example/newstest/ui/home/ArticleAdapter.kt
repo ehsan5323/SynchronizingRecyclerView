@@ -1,4 +1,4 @@
-package ir.example.newstest.ui.home.json
+package ir.example.newstest.ui.home
 
 import androidx.recyclerview.widget.DiffUtil
 import ir.example.newstest.R
@@ -6,7 +6,6 @@ import ir.example.newstest.base.BaseAdapter
 import ir.example.newstest.domain.pojo.Article
 import ir.example.newstest.domain.pojo.Detail
 import ir.example.newstest.domain.pojo.News
-import kotlinx.android.synthetic.main.item_news_en.view.*
 
 class ArticleAdapter : BaseAdapter<News>(DIFF_CALLBACK) {
 
