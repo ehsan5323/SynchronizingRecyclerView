@@ -14,4 +14,5 @@ class NewsTestGlideApp : AppGlideModule() {
         // Log glide loads
         if (BuildConfig.DEBUG) builder.setLogLevel(Log.DEBUG)
     }
+
 }
