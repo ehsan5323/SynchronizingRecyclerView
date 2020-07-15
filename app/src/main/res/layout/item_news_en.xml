@@ -18,7 +18,7 @@
         <ImageView
             android:id="@+id/img_news"
             android:layout_width="100dp"
-            android:layout_height="80dp"
+            android:layout_height="140dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@string/app_name"
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:ellipsize="end"
-            android:lines="1"
+            android:lines="4"
             android:text="@{item.description}"
             app:layout_constraintEnd_toEndOf="@+id/txt_title"
             app:layout_constraintStart_toStartOf="@id/txt_title"
