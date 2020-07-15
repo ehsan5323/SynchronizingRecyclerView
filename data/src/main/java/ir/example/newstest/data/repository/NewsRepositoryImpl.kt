@@ -92,7 +92,7 @@ class NewsRepositoryImpl @Inject constructor() : NewsRepository {
 
             MetaData(Season.WINTER,ItemType.LARGE),
             MetaData(Season.WINTER,ItemType.LARGE),
-            MetaData(Season.WINTER,ItemType.MEDIUM),
+            MetaData(Season.WINTER,ItemType.LARGE),
             MetaData(Season.WINTER,ItemType.MEDIUM),
             MetaData(Season.WINTER,ItemType.MEDIUM),
             MetaData(Season.WINTER,ItemType.LARGE),
