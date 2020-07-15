@@ -1,31 +1,31 @@
 package ir.example.newstest.ui.home
 
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
-import ir.example.newstest.R
+import androidx.lifecycle.MutableLiveData
 import ir.example.newstest.base.BaseViewModel
+import ir.example.newstest.domain.pojo.MetaData
 import ir.example.newstest.domain.pojo.News
-import ir.example.newstest.domain.pojo.req.XmlNewsReq
-import ir.example.newstest.domain.usecase.favorite.GetAllFavoriteUseCase
-import ir.example.newstest.util.LiveListResult
-import kotlinx.coroutines.Dispatchers
+import ir.example.newstest.domain.usecase.GetMockMetaDataUseCase
+import ir.example.newstest.domain.usecase.GetMockNewsUseCase
 import javax.inject.Inject
 
-const val COUNTRY = "us"
-const val API_KEY = "2d248e49b4d44d3d8c93462557529cba"
+class HomeViewModel @Inject constructor(
+    mockNewsUseCase: GetMockNewsUseCase,
+    mockMetaDataUseCase: GetMockMetaDataUseCase
+) :
+    BaseViewModel() {
 
-class HomeViewModel  @Inject constructor(getJsonNewsUseCase: GetAllFavoriteUseCase) : BaseViewModel() {
+    private var resultList = mutableListOf<News>()
+    private var metaDataResultList = mutableListOf<MetaData>()
 
-    val list: LiveListResult<News> = getJsonNewsUseCase(XmlNewsReq(COUNTRY, API_KEY))
-        .asLiveData(viewModelScope.coroutineContext + Dispatchers.IO)
-
-    val picList = mutableListOf<Int>()
+    val list = MutableLiveData<MutableList<News>>()
+    val metaDataList = MutableLiveData<MutableList<MetaData>>()
 
     init {
-        picList.add(R.drawable.season_spring_a)
-        picList.add(R.drawable.season_summer_a)
-        picList.add(R.drawable.season_fall_a)
-        picList.add(R.drawable.season_winter_a)
+        resultList = mockNewsUseCase(Unit)
+        list.value = resultList
+        metaDataResultList = mockMetaDataUseCase(Unit)
+        metaDataList.value = metaDataResultList
     }
+
 
 }

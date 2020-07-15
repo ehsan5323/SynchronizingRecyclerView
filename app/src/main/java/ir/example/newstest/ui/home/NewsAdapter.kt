@@ -3,29 +3,28 @@ package ir.example.newstest.ui.home
 import androidx.recyclerview.widget.DiffUtil
 import ir.example.newstest.R
 import ir.example.newstest.base.BaseAdapter
-import ir.example.newstest.domain.pojo.Article
-import ir.example.newstest.domain.pojo.Detail
+import ir.example.newstest.domain.pojo.NewsEn
 import ir.example.newstest.domain.pojo.News
+import ir.example.newstest.domain.pojo.NewsFa
 
-class ArticleAdapter : BaseAdapter<News>(DIFF_CALLBACK) {
-
+class NewsAdapter : BaseAdapter<News>(DIFF_CALLBACK) {
 
     companion object {
         @Suppress("USELESS_CAST")
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<News>() {
             override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
-                if (oldItem is Article && newItem is Article)
+                if (oldItem is NewsEn && newItem is NewsEn)
                     return oldItem == newItem
-                if (oldItem is Detail && newItem is Detail)
+                if (oldItem is NewsFa && newItem is NewsFa)
                     return oldItem == newItem
                 return false
             }
 
             override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
-                if (oldItem is Article && newItem is Article)
-                    return (oldItem as Article) == (newItem as Article)
-                if (oldItem is Detail && newItem is Detail)
-                    return (oldItem as Detail) == (newItem as Detail)
+                if (oldItem is NewsEn && newItem is NewsEn)
+                    return (oldItem as NewsEn) == (newItem as NewsEn)
+                if (oldItem is NewsFa && newItem is NewsFa)
+                    return (oldItem as NewsFa) == (newItem as NewsFa)
                 return false
             }
         }
@@ -33,15 +32,14 @@ class ArticleAdapter : BaseAdapter<News>(DIFF_CALLBACK) {
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is Article -> R.layout.item_news_en
-            is Detail -> R.layout.item_news_fa
+            is NewsEn -> R.layout.item_news_en
+            is NewsFa -> R.layout.item_news_fa
             else -> throw Exception()
         }
     }
 
     override fun onBindViewHolder(holder: DataBindingViewHolder, position: Int) {
         super.onBindViewHolder(holder, position)
-
 
     }
 

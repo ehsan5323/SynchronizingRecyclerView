@@ -20,12 +20,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_news"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             app:data="@{vm.list}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/list_news2"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:itemCount="5"
             tools:listitem="@layout/item_news_en" />
 
@@ -78,6 +79,13 @@
 
 
         </HorizontalScrollView>
+
+        <include layout="@layout/item_news_fa"
+            android:visibility="invisible"/>
+        <include layout="@layout/item_news_en"
+            android:visibility="invisible"/>
+        <include layout="@layout/item_season_changer"
+            android:visibility="invisible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
