@@ -15,10 +15,12 @@ import ir.example.newstest.R
 import ir.example.newstest.base.BaseFragment
 import ir.example.newstest.base.ViewModelScope
 import ir.example.newstest.databinding.FragmentHomeBinding
+import ir.example.newstest.domain.pojo.ItemType
 import ir.example.newstest.domain.pojo.MetaData
 import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.pojo.Season
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.item_news_en.*
 import kotlinx.android.synthetic.main.item_news_fa.*
 import kotlinx.android.synthetic.main.item_season_changer.*
 
@@ -53,16 +55,27 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         picList.add(R.drawable.season_winter_c)
     }
 
-    var sumSpringItem = 0
-    var sumSummerItem = 0
-    var sumFallItem = 0
-    var sumWinterItem = 0
-
     var seasonWidthSize = 0
-    var springItemSize = 0
-    var summerItemSize = 0
-    var fallItemSize = 0
-    var winterItemSize = 0
+
+    var sumSpringItemTypeA = 0
+    var sumSummerItemTypeA = 0
+    var sumFallItemTypeA = 0
+    var sumWinterItemTypeA = 0
+
+    var sumSpringItemTypeB = 0
+    var sumSummerItemTypeB = 0
+    var sumFallItemTypeB = 0
+    var sumWinterItemTypeB = 0
+
+    var springItemSizeTypeA = 0
+    var summerItemSizeTypeA = 0
+    var fallItemSizeTypeA = 0
+    var winterItemSizeTypeA = 0
+
+    var springItemSizeTypeB = 0
+    var summerItemSizeTypeB = 0
+    var fallItemSizeTypeB = 0
+    var winterItemSizeTypeB = 0
 
     var sumSpringSize = 0
     var sumSummerSize = 0
@@ -71,7 +84,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
 
     override fun configEvents() {
-        getSpringItemSize(item_news_fa)
+        getSpringItemSizeTypeA(item_news_fa)
+        getSpringItemSizeTypeB(item_news_en)
         getSeasonItemSize()
 
         list_news.adapter = adapter
@@ -96,10 +110,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
                 scrollPosition += dy
 
-                var springPercentage: Float = 0.0f
-                var summerPercentage: Float = 0.0f
-                var fallPercentage: Float = 0.0f
-                var winterPercentage: Float = 0.0f
+                var springPercentage = 0.0f
+                var summerPercentage = 0.0f
+                var fallPercentage = 0.0f
+                var winterPercentage = 0.0f
 
                 when (scrollPosition) {
                     in 0 until sumSpringSize -> {
@@ -121,8 +135,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 }
 
                 Log.d("RecyclerViewScrollBy", "list_news scrollPosition: $scrollPosition")
-//                list_news2.scrollBy(dy, 0)
-
             }
         })
         var summH = 0
@@ -139,7 +151,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     fun scrollBy(dy: Int, percentage: Float) {
         val decPart = percentage - percentage.toInt()
         var offset = (dy * percentage).toInt()
-        if (decPart > 0.5)
+        if (decPart > 0.5f)
             offset++
         sumHorizontalScroll += offset
         Log.d("RecyclerViewScrollBy", "sumHorizontalScroll: $sumHorizontalScroll")
@@ -156,7 +168,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         return Pair(width, height)
     }
 
-    private fun getSpringItemSize(constraintLayout: ConstraintLayout) {
+    private fun getSpringItemSizeTypeA(constraintLayout: ConstraintLayout) {
         val vto: ViewTreeObserver = constraintLayout.viewTreeObserver
         var width = 0
         var height = 0
@@ -168,11 +180,33 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                     constraintLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
                 }
                 width = constraintLayout.getMeasuredWidth()
-                springItemSize = constraintLayout.getMeasuredHeight()
-                Log.d("RecyclerViewScrollBy", "list_news ItemSize: $springItemSize")
-                summerItemSize = springItemSize
-                fallItemSize = springItemSize
-                winterItemSize = springItemSize
+                springItemSizeTypeA = constraintLayout.getMeasuredHeight()
+                Log.d("RecyclerViewScrollBy", "list_news ItemSizeTypeA: $springItemSizeTypeA")
+                summerItemSizeTypeA = springItemSizeTypeA
+                fallItemSizeTypeA = springItemSizeTypeA
+                winterItemSizeTypeA = springItemSizeTypeA
+                setItemSize()
+            }
+        })
+    }
+
+    private fun getSpringItemSizeTypeB(constraintLayout: ConstraintLayout) {
+        val vto: ViewTreeObserver = constraintLayout.viewTreeObserver
+        var width = 0
+        var height = 0
+        vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                    constraintLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this)
+                } else {
+                    constraintLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
+                }
+                width = constraintLayout.getMeasuredWidth()
+                springItemSizeTypeB = constraintLayout.getMeasuredHeight()
+                Log.d("RecyclerViewScrollBy", "list_news ItemSizeTypeB: $springItemSizeTypeB")
+                summerItemSizeTypeB = springItemSizeTypeB
+                fallItemSizeTypeB = springItemSizeTypeB
+                winterItemSizeTypeB = springItemSizeTypeB
                 setItemSize()
             }
         })
@@ -198,30 +232,68 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun setItemSize() {
-        sumSpringItem = 0
-        sumSummerItem = 0
-        sumFallItem = 0
-        sumWinterItem = 0
+        sumSpringItemTypeA = 0
+        sumSummerItemTypeA = 0
+        sumFallItemTypeA = 0
+        sumWinterItemTypeA = 0
+
+        sumSpringItemTypeB = 0
+        sumSummerItemTypeB = 0
+        sumFallItemTypeB = 0
+        sumWinterItemTypeB = 0
+
         metaDatas.forEach {
             when (it.season) {
                 Season.SPRING -> {
-                    sumSpringItem++
+                    when (it.itemType) {
+                        ItemType.MEDIUM -> {
+                            sumSpringItemTypeA++
+                        }
+                        ItemType.LARGE -> {
+                            sumSpringItemTypeB++
+                        }
+                    }
                 }
                 Season.SUMMER -> {
-                    sumSummerItem++
+                    when (it.itemType) {
+                        ItemType.MEDIUM -> {
+                            sumSummerItemTypeA++
+                        }
+                        ItemType.LARGE -> {
+                            sumSummerItemTypeB++
+                        }
+                    }
                 }
                 Season.FALL -> {
-                    sumFallItem++
+                    when (it.itemType) {
+                        ItemType.MEDIUM -> {
+                            sumFallItemTypeA++
+                        }
+                        ItemType.LARGE -> {
+                            sumFallItemTypeB++
+                        }
+                    }
                 }
                 Season.WINTER -> {
-                    sumWinterItem++
+                    when (it.itemType) {
+                        ItemType.MEDIUM -> {
+                            sumWinterItemTypeA++
+                        }
+                        ItemType.LARGE -> {
+                            sumWinterItemTypeB++
+                        }
+                    }
                 }
             }
         }
-        sumSpringSize = sumSpringItem * springItemSize
-        sumSummerSize = sumSummerItem * summerItemSize
-        sumFallSize = sumFallItem * fallItemSize
-        sumWinterSize = sumWinterItem * winterItemSize
+        sumSpringSize =
+            (sumSpringItemTypeA * springItemSizeTypeA) + (sumSpringItemTypeB * springItemSizeTypeB)
+        sumSummerSize =
+            (sumSummerItemTypeA * summerItemSizeTypeA) + (sumSummerItemTypeB * summerItemSizeTypeB)
+        sumFallSize =
+            (sumFallItemTypeA * fallItemSizeTypeA) + (sumFallItemTypeB * fallItemSizeTypeB)
+        sumWinterSize =
+            (sumWinterItemTypeA * winterItemSizeTypeA) + (sumWinterItemTypeB * winterItemSizeTypeB)
 
         Log.d("RecyclerViewScrollBy", "list_news sumSpringSize: $sumSpringSize")
         Log.d("RecyclerViewScrollBy", "list_news sumSummerSize: $sumSummerSize")
