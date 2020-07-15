@@ -1,15 +1,10 @@
 package ir.example.newstest.data.repository
 
-import ir.example.newstest.data.restful.NewsJsonApi
-import ir.example.newstest.data.restful.NewsXmlApi
 import ir.example.newstest.domain.pojo.*
 import ir.example.newstest.domain.repository.NewsRepository
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor(
-    private val newsJsonApi: NewsJsonApi,
-    private val newsXmlApi: NewsXmlApi
-) : NewsRepository {
+class NewsRepositoryImpl @Inject constructor() : NewsRepository {
 
     override fun getMockNews(): MutableList<News> = createMockNewsFaMockList()
 
@@ -34,14 +29,6 @@ class NewsRepositoryImpl @Inject constructor(
             NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER),
             NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
             NewsFa("title5", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER, guid = "https://homepages.cae.wisc.edu/~ece533/images/fruits.png"),
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER),
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER),
-            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER),
-            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER),
-            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.SUMMER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
-
 
 
             NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.FALL, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
@@ -57,16 +44,16 @@ class NewsRepositoryImpl @Inject constructor(
 
 
 
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
-            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
-            NewsFa("title5", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/fruits.png"),
-            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
-            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
-            NewsEn("title4", "title4", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
-            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
-            NewsFa("title5", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/fruits.png")
+            NewsEn("title1", "title1", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
+            NewsEn("title2", "title2", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
+            NewsEn("title3", "title3", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
+            NewsFa("title4", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/fruits.png"),
+            NewsFa("title5", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
+            NewsEn("title6", "title6", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
+            NewsFa("title7", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
+            NewsEn("title8", "title8", "description1 description1 description1 description1 description1 description1 description1", "link", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER),
+            NewsFa("title9", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/cat.png"),
+            NewsFa("title10", "link", "description1 description1 description1 description1 description1 description1 description1", "https://homepages.cae.wisc.edu/~ece533/images/monarch.png",seasons = Season.WINTER, guid = "https://homepages.cae.wisc.edu/~ece533/images/fruits.png")
 
 
         )
@@ -88,13 +75,6 @@ class NewsRepositoryImpl @Inject constructor(
 
             MetaData(Season.SUMMER,ItemType.LARGE),
             MetaData(Season.SUMMER,ItemType.MEDIUM),
-            MetaData(Season.SUMMER,ItemType.MEDIUM),
-            MetaData(Season.SUMMER,ItemType.LARGE),
-            MetaData(Season.SUMMER,ItemType.LARGE),
-            MetaData(Season.SUMMER,ItemType.MEDIUM),
-            MetaData(Season.SUMMER,ItemType.LARGE),
-            MetaData(Season.SUMMER,ItemType.MEDIUM),
-            MetaData(Season.SUMMER,ItemType.LARGE),
             MetaData(Season.SUMMER,ItemType.MEDIUM),
 
 
