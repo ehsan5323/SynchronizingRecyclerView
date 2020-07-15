@@ -10,7 +10,6 @@ import ir.example.newstest.domain.pojo.NewsFa
 class NewsAdapter : BaseAdapter<News>(DIFF_CALLBACK) {
 
     companion object {
-        @Suppress("USELESS_CAST")
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<News>() {
             override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
                 if (oldItem is NewsEn && newItem is NewsEn)
@@ -37,10 +36,4 @@ class NewsAdapter : BaseAdapter<News>(DIFF_CALLBACK) {
             else -> throw Exception()
         }
     }
-
-    override fun onBindViewHolder(holder: DataBindingViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
-
-    }
-
 }

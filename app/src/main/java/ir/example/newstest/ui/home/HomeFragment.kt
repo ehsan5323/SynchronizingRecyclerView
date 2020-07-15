@@ -15,7 +15,6 @@ import ir.example.newstest.R
 import ir.example.newstest.base.BaseFragment
 import ir.example.newstest.base.ViewModelScope
 import ir.example.newstest.databinding.FragmentHomeBinding
-import ir.example.newstest.domain.pojo.ItemType
 import ir.example.newstest.domain.pojo.MetaData
 import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.pojo.Season
@@ -34,10 +33,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val adapter2 = SeasonChanger()
 
 
-    val picList = mutableListOf<Int>()
+    private val picList = mutableListOf<Int>()
 
-    var newsList = mutableListOf<News>()
-    var metaDatas = mutableListOf<MetaData>()
+    private var newsList = mutableListOf<News>()
+    private var metaDatas = mutableListOf<MetaData>()
 
     init {
         picList.add(R.drawable.season_spring_a)
@@ -52,8 +51,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         picList.add(R.drawable.season_winter_a)
         picList.add(R.drawable.season_winter_b)
         picList.add(R.drawable.season_winter_c)
-
-
     }
 
     var sumSpringItem = 0
@@ -104,25 +101,26 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 var fallPercentage: Float = 0.0f
                 var winterPercentage: Float = 0.0f
 
-                when {
-                    scrollPosition in 0 until sumSpringSize -> {
+                when (scrollPosition) {
+                    in 0 until sumSpringSize -> {
                         springPercentage = seasonWidthSize.toFloat() / sumSpringSize.toFloat()
                         scrollBy(dy, springPercentage)
                     }
-                    scrollPosition in sumSpringSize + 1 until sumSpringSize + sumSummerSize -> {
+                    in sumSpringSize + 1 until sumSpringSize + sumSummerSize -> {
                         summerPercentage = seasonWidthSize.toFloat() / sumSummerSize.toFloat()
                         scrollBy(dy, summerPercentage)
-//                        scrollBy((dy * summerPercentage).toInt())
                     }
-                    scrollPosition in sumFallSize + 1 until sumSpringSize + sumFallSize + sumWinterSize -> {
+                    in sumSpringSize + sumSummerSize + 1 until sumSpringSize + sumSummerSize + sumFallSize -> {
                         fallPercentage = seasonWidthSize.toFloat() / sumFallSize.toFloat()
+                        scrollBy(dy, fallPercentage)
                     }
-                    scrollPosition < sumWinterSize -> {
+                    in sumSpringSize + sumSummerSize + sumFallSize + 1 until sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize -> {
                         winterPercentage = seasonWidthSize.toFloat() / sumWinterSize.toFloat()
+                        scrollBy(dy, winterPercentage)
                     }
                 }
 
-                Log.d("scrollPosition", "scrollPosition: $scrollPosition")
+                Log.d("RecyclerViewScrollBy", "list_news scrollPosition: $scrollPosition")
 //                list_news2.scrollBy(dy, 0)
 
             }
@@ -132,9 +130,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 summH += dx
-
-                Log.d("HorizontalScorll", "list_news2: $summH")
-
+                Log.d("RecyclerViewScrollBy", "list_news2 onScrolled sum: $summH")
             }
         })
     }
@@ -145,9 +141,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         var offset = (dy * percentage).toInt()
         if (decPart > 0.5)
             offset++
-        offset = (offset).toInt()
         sumHorizontalScroll += offset
-        Log.d("sumHorizontalScorll", "sumHorizontalScorll: $sumHorizontalScroll")
+        Log.d("RecyclerViewScrollBy", "sumHorizontalScroll: $sumHorizontalScroll")
         list_news2.scrollBy(offset, 0)
     }
 
@@ -174,6 +169,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 }
                 width = constraintLayout.getMeasuredWidth()
                 springItemSize = constraintLayout.getMeasuredHeight()
+                Log.d("RecyclerViewScrollBy", "list_news ItemSize: $springItemSize")
                 summerItemSize = springItemSize
                 fallItemSize = springItemSize
                 winterItemSize = springItemSize
@@ -188,12 +184,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         var height = 0
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    season_layout.getViewTreeObserver().removeGlobalOnLayoutListener(this)
-                } else {
-                    season_layout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
-                }
+                season_layout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
                 seasonWidthSize = season_layout.getMeasuredWidth() * 3
+
+                Log.d("RecyclerViewScrollBy", "list_news2 seasonWidthSize: $seasonWidthSize")
+
+                val a = getViewSize(R.layout.item_season_changer)
+//                seasonWidthSize = a.first * 3
                 height = season_layout.getMeasuredHeight()
                 setItemSize()
             }
@@ -225,6 +222,11 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         sumSummerSize = sumSummerItem * summerItemSize
         sumFallSize = sumFallItem * fallItemSize
         sumWinterSize = sumWinterItem * winterItemSize
+
+        Log.d("RecyclerViewScrollBy", "list_news sumSpringSize: $sumSpringSize")
+        Log.d("RecyclerViewScrollBy", "list_news sumSummerSize: $sumSummerSize")
+        Log.d("RecyclerViewScrollBy", "list_news sumFallSize: $sumFallSize")
+        Log.d("RecyclerViewScrollBy", "list_news sumWinterSize: $sumWinterSize")
 
     }
 
