@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_news_en.*
 import kotlinx.android.synthetic.main.item_news_fa.*
 import kotlinx.android.synthetic.main.item_season_changer.*
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
@@ -32,9 +34,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private val adapter = NewsAdapter()
     private val adapter2 = SeasonChanger()
-
-
-    private var newsList = mutableListOf<News>()
 
     private var metaDatas = mutableListOf<MetaData>()
 
@@ -65,7 +64,6 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     var sumFallSize = 0
     var sumWinterSize = 0
 
-
     override fun configEvents() {
         getSpringItemSizeTypeA(item_news_fa)
         getSpringItemSizeTypeB(item_news_en)
@@ -91,30 +89,20 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
                 scrollPosition += dy
 
-                val springPercentage: Float
-                val summerPercentage: Float
-                val fallPercentage: Float
-                val winterPercentage: Float
-
                 when (scrollPosition) {
                     in 0 until sumSpringSize -> {
-                        springPercentage = seasonWidthSize.toFloat() / sumSpringSize.toFloat()
-                        scrollBy(dy, springPercentage)
+                        viewModel.scrollCalculate(dy,seasonWidthSize,sumSpringSize)
                     }
                     in sumSpringSize + 1 until sumSpringSize + sumSummerSize -> {
-                        summerPercentage = seasonWidthSize.toFloat() / sumSummerSize.toFloat()
-                        scrollBy(dy, summerPercentage)
+                        viewModel.scrollCalculate(dy,seasonWidthSize,sumSummerSize)
                     }
                     in sumSpringSize + sumSummerSize + 1 until sumSpringSize + sumSummerSize + sumFallSize -> {
-                        fallPercentage = seasonWidthSize.toFloat() / sumFallSize.toFloat()
-                        scrollBy(dy, fallPercentage)
+                        viewModel.scrollCalculate(dy,seasonWidthSize,sumFallSize)
                     }
                     in sumSpringSize + sumSummerSize + sumFallSize + 1 until sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize -> {
-                        winterPercentage = seasonWidthSize.toFloat() / sumWinterSize.toFloat()
-                        scrollBy(dy, winterPercentage)
+                        viewModel.scrollCalculate(dy,seasonWidthSize,sumWinterSize)
                     }
                 }
-
                 Log.d("RecyclerViewScrollBy", "list_news scrollPosition: $scrollPosition")
             }
         })
@@ -128,15 +116,8 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         })
     }
 
-    private var sumHorizontalScroll = 0
-    fun scrollBy(dy: Int, percentage: Float) {
-        val decPart = percentage - percentage.toInt()
-        var offset = (dy * percentage).toInt()
-        if (decPart > 0.5f)
-            offset++
-        sumHorizontalScroll += offset
-        Log.d("RecyclerViewScrollBy", "sumHorizontalScroll: $sumHorizontalScroll")
-        list_news2.scrollBy(offset, 0)
+    private fun scrollBy(scrollOffset: Int){
+        list_news2.scrollBy(scrollOffset, 0)
     }
 
     private fun getViewSize(viewId: Int): Pair<Int, Int> {
@@ -256,23 +237,20 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             (sumFallItemTypeA * fallItemSizeTypeA) + (sumFallItemTypeB * fallItemSizeTypeB)
         sumWinterSize =
             (sumWinterItemTypeA * winterItemSizeTypeA) + (sumWinterItemTypeB * winterItemSizeTypeB)
-
         Log.d("RecyclerViewScrollBy", "list_news sumSpringSize: $sumSpringSize")
         Log.d("RecyclerViewScrollBy", "list_news sumSummerSize: $sumSummerSize")
         Log.d("RecyclerViewScrollBy", "list_news sumFallSize: $sumFallSize")
         Log.d("RecyclerViewScrollBy", "list_news sumWinterSize: $sumWinterSize")
-
     }
 
     override fun bindObservables() {
-        viewModel.list.observe(this, Observer {
-            newsList = it.toMutableList()
-        })
         viewModel.metaDataList.observe(this, Observer {
             metaDatas = it.toMutableList()
             setItemSize()
         })
-
+        viewModel.scrollByValue.observe(this, Observer {
+            scrollBy(it)
+        })
     }
 
     override fun initBinding() {

@@ -1,5 +1,7 @@
 package ir.example.newstest.ui.home
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ir.example.newstest.R
 import ir.example.newstest.base.BaseViewModel
@@ -8,12 +10,24 @@ import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.usecase.GetMockMetaDataUseCase
 import ir.example.newstest.domain.usecase.GetMockNewsUseCase
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 class HomeViewModel @Inject constructor(
     mockNewsUseCase: GetMockNewsUseCase,
     mockMetaDataUseCase: GetMockMetaDataUseCase
 ) :
     BaseViewModel() {
+
+    val scrollByValue: LiveData<Int>
+        get() = _scrollByValue
+    private val _scrollByValue = MutableLiveData<Int>()
+
+    fun scrollCalculate(dy: Int, seasonWidthSize: Int, sumItemSize: Int) {
+        val percentage = seasonWidthSize.toFloat() / sumItemSize.toFloat()
+        val offset = (dy * percentage).roundToInt()
+        _scrollByValue.value = offset
+        Log.d("RecyclerViewScrollBy", "horizontalScrollOffset: $offset")
+    }
 
     private var resultList = mutableListOf<News>()
     private var metaDataResultList = mutableListOf<MetaData>()
