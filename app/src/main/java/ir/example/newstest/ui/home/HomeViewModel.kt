@@ -58,31 +58,13 @@ class HomeViewModel @Inject constructor(
     private var resultList = mutableListOf<News>()
     private var metaDataResultList = mutableListOf<MetaData>()
 
+    private var metaAdapterData = mutableListOf<MetaData>()
+
     val list = MutableLiveData<MutableList<News>>()
 
     val seasonChangerList = MutableLiveData<MutableList<Int>>()
 
     private val picList = mutableListOf<Int>()
-
-    init {
-        picList.add(R.drawable.season_spring_a)
-        picList.add(R.drawable.season_spring_b)
-        picList.add(R.drawable.season_spring_c)
-        picList.add(R.drawable.season_summer_a)
-        picList.add(R.drawable.season_summer_b)
-        picList.add(R.drawable.season_summer_c)
-        picList.add(R.drawable.season_fall_a)
-        picList.add(R.drawable.season_fall_b)
-        picList.add(R.drawable.season_fall_c)
-        picList.add(R.drawable.season_winter_a)
-        picList.add(R.drawable.season_winter_b)
-        picList.add(R.drawable.season_winter_c)
-        picList.add(R.drawable.season_spring_a)
-        picList.add(R.drawable.season_spring_b)
-        picList.add(R.drawable.season_spring_c)
-
-        seasonChangerList.value = picList
-    }
 
     init {
         resultList = mockNewsUseCase(Unit)
@@ -106,9 +88,16 @@ class HomeViewModel @Inject constructor(
             var sumFallItemTypeB = 0
             var sumWinterItemTypeB = 0
 
+            var springFlag = false
+            var summerFlag = false
+            var fallFlag = false
+            var winterFlag = false
+            var springNFlag = false
+
             metaDatas.forEach { item ->
                 when (item.season) {
                     Season.SPRING -> {
+                        springFlag = true
                         when (item.itemType) {
                             ItemType.MEDIUM -> {
                                 sumSpringItemTypeA++
@@ -119,6 +108,7 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                     Season.SUMMER -> {
+                        summerFlag = true
                         when (item.itemType) {
                             ItemType.MEDIUM -> {
                                 sumSummerItemTypeA++
@@ -129,6 +119,7 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                     Season.FALL -> {
+                        fallFlag = true
                         when (item.itemType) {
                             ItemType.MEDIUM -> {
                                 sumFallItemTypeA++
@@ -139,6 +130,7 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                     Season.WINTER -> {
+                        winterFlag = true
                         when (item.itemType) {
                             ItemType.MEDIUM -> {
                                 sumWinterItemTypeA++
@@ -149,6 +141,7 @@ class HomeViewModel @Inject constructor(
                         }
                     }
                     Season.SPRING_N -> {
+                        springNFlag = true
                         when (item.itemType) {
                             ItemType.MEDIUM -> {
                                 sumSpringNItemTypeA++
@@ -168,26 +161,32 @@ class HomeViewModel @Inject constructor(
                 sumSpringNSize = (sumSpringNItemTypeA * itemSizeTypeA) + (sumSpringNItemTypeB * itemSizeTypeB)
             )
             _seasonSize.value = seasonSize
-
-            Log.d(
-                "RecyclerViewScrollBy",
-                "list_news seasonSize.sumSpringSize: ${seasonSize.sumSpringSize}"
-            )
-            Log.d(
-                "RecyclerViewScrollBy",
-                "list_news seasonSize.sumSummerSize: ${seasonSize.sumSummerSize}"
-            )
-            Log.d(
-                "RecyclerViewScrollBy",
-                "list_news seasonSize.sumFallSize: ${seasonSize.sumFallSize}"
-            )
-            Log.d(
-                "RecyclerViewScrollBy",
-                "list_news seasonSize.sumWinterSize: ${seasonSize.sumWinterSize}"
-            )
-            Log.d(
-                "RecyclerViewScrollBy",
-                "list_news seasonSize.sumSpringNSize: ${seasonSize.sumSpringNSize}"
-            )
+            picList.clear()
+            if (springFlag) {
+                picList.add(R.drawable.season_spring_a)
+                picList.add(R.drawable.season_spring_b)
+                picList.add(R.drawable.season_spring_c)
+            }
+            if (summerFlag) {
+                picList.add(R.drawable.season_summer_a)
+                picList.add(R.drawable.season_summer_b)
+                picList.add(R.drawable.season_summer_c)
+            }
+            if (fallFlag) {
+                picList.add(R.drawable.season_fall_a)
+                picList.add(R.drawable.season_fall_b)
+                picList.add(R.drawable.season_fall_c)
+            }
+            if (winterFlag) {
+                picList.add(R.drawable.season_winter_a)
+                picList.add(R.drawable.season_winter_b)
+                picList.add(R.drawable.season_winter_c)
+            }
+            if (springNFlag) {
+                picList.add(R.drawable.season_spring_a)
+                picList.add(R.drawable.season_spring_b)
+                picList.add(R.drawable.season_spring_c)
+            }
+            seasonChangerList.value = picList
         }
 }
