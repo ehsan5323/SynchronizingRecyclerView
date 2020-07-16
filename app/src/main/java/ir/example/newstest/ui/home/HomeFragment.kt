@@ -1,7 +1,6 @@
 package ir.example.newstest.ui.home
 
 import android.content.Context
-import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -35,25 +34,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     private val adapter2 = SeasonChanger()
 
 
-    private val picList = mutableListOf<Int>()
-
     private var newsList = mutableListOf<News>()
-    private var metaDatas = mutableListOf<MetaData>()
 
-    init {
-        picList.add(R.drawable.season_spring_a)
-        picList.add(R.drawable.season_spring_b)
-        picList.add(R.drawable.season_spring_c)
-        picList.add(R.drawable.season_summer_a)
-        picList.add(R.drawable.season_summer_b)
-        picList.add(R.drawable.season_summer_c)
-        picList.add(R.drawable.season_fall_a)
-        picList.add(R.drawable.season_fall_b)
-        picList.add(R.drawable.season_fall_c)
-        picList.add(R.drawable.season_winter_a)
-        picList.add(R.drawable.season_winter_b)
-        picList.add(R.drawable.season_winter_c)
-    }
+    private var metaDatas = mutableListOf<MetaData>()
 
     var seasonWidthSize = 0
 
@@ -91,14 +74,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         list_news.adapter = adapter
 
         list_news2.adapter = adapter2
-        adapter2.submitList(picList)
 
         list_news2.addOnItemTouchListener(object : RecyclerView.OnItemTouchListener {
             override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                 return true
             }
-
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
         })
 
@@ -110,10 +91,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
                 scrollPosition += dy
 
-                var springPercentage = 0.0f
-                var summerPercentage = 0.0f
-                var fallPercentage = 0.0f
-                var winterPercentage = 0.0f
+                val springPercentage: Float
+                val summerPercentage: Float
+                val fallPercentage: Float
+                val winterPercentage: Float
 
                 when (scrollPosition) {
                     in 0 until sumSpringSize -> {
@@ -137,12 +118,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 Log.d("RecyclerViewScrollBy", "list_news scrollPosition: $scrollPosition")
             }
         })
-        var summH = 0
+        var sumOnScrolledList2 = 0
         list_news2.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                summH += dx
-                Log.d("RecyclerViewScrollBy", "list_news2 onScrolled sum: $summH")
+                sumOnScrolledList2 += dx
+                Log.d("RecyclerViewScrollBy", "list_news2 onScrolled sum: $sumOnScrolledList2")
             }
         })
     }
@@ -170,17 +151,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun getSpringItemSizeTypeA(constraintLayout: ConstraintLayout) {
         val vto: ViewTreeObserver = constraintLayout.viewTreeObserver
-        var width = 0
-        var height = 0
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    constraintLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this)
-                } else {
-                    constraintLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
-                }
-                width = constraintLayout.getMeasuredWidth()
-                springItemSizeTypeA = constraintLayout.getMeasuredHeight()
+                constraintLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                springItemSizeTypeA = constraintLayout.measuredHeight
                 Log.d("RecyclerViewScrollBy", "list_news ItemSizeTypeA: $springItemSizeTypeA")
                 summerItemSizeTypeA = springItemSizeTypeA
                 fallItemSizeTypeA = springItemSizeTypeA
@@ -192,17 +166,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun getSpringItemSizeTypeB(constraintLayout: ConstraintLayout) {
         val vto: ViewTreeObserver = constraintLayout.viewTreeObserver
-        var width = 0
-        var height = 0
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                    constraintLayout.getViewTreeObserver().removeGlobalOnLayoutListener(this)
-                } else {
-                    constraintLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
-                }
-                width = constraintLayout.getMeasuredWidth()
-                springItemSizeTypeB = constraintLayout.getMeasuredHeight()
+                constraintLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                springItemSizeTypeB = constraintLayout.measuredHeight
                 Log.d("RecyclerViewScrollBy", "list_news ItemSizeTypeB: $springItemSizeTypeB")
                 summerItemSizeTypeB = springItemSizeTypeB
                 fallItemSizeTypeB = springItemSizeTypeB
@@ -214,18 +181,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun getSeasonItemSize() {
         val vto: ViewTreeObserver = season_layout.viewTreeObserver
-        var width = 0
-        var height = 0
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
-                season_layout.getViewTreeObserver().removeOnGlobalLayoutListener(this)
-                seasonWidthSize = season_layout.getMeasuredWidth() * 3
-
+                season_layout.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                seasonWidthSize = season_layout.measuredWidth * 3
                 Log.d("RecyclerViewScrollBy", "list_news2 seasonWidthSize: $seasonWidthSize")
-
-                val a = getViewSize(R.layout.item_season_changer)
-//                seasonWidthSize = a.first * 3
-                height = season_layout.getMeasuredHeight()
+//                val viewItemSize = getViewSize(R.layout.item_season_changer)
+//                seasonWidthSize = viewItemSize.first * 3
                 setItemSize()
             }
         })
