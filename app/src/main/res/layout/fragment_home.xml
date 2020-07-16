@@ -37,7 +37,6 @@
             android:layout_height="150dp"
             android:orientation="horizontal"
             android:visibility="visible"
-            app:data="@{vm.seasonChangerList}"
             app:layoutManager="ir.example.newstest.util.CustomLinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
