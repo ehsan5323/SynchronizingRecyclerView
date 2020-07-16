@@ -58,8 +58,6 @@ class HomeViewModel @Inject constructor(
     private var resultList = mutableListOf<News>()
     private var metaDataResultList = mutableListOf<MetaData>()
 
-    private var metaAdapterData = mutableListOf<MetaData>()
-
     val list = MutableLiveData<MutableList<News>>()
 
     val seasonChangerList = MutableLiveData<MutableList<Int>>()
