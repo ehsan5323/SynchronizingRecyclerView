@@ -28,5 +28,10 @@ fun TextView.setSeasons(season: Season?) {
             setTextColor(Color.WHITE)
             setBackgroundColor(Color.BLUE)
         }
+        Season.SPRING_N -> {
+            text = "NewYear"
+            setTextColor(Color.BLACK)
+            setBackgroundColor(Color.GREEN)
+        }
     }
 }

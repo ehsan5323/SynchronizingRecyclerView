@@ -26,6 +26,7 @@ class HomeViewModel @Inject constructor(
         val percentage = seasonWidthSize.toFloat() / sumItemSize.toFloat()
         val offset = (dy * percentage).roundToInt()
         _scrollByValue.value = offset
+        Log.d("RecyclerViewScrollBy", "percentage: $percentage")
         Log.d("RecyclerViewScrollBy", "horizontalScrollOffset: $offset")
     }
 
@@ -52,6 +53,10 @@ class HomeViewModel @Inject constructor(
         picList.add(R.drawable.season_winter_a)
         picList.add(R.drawable.season_winter_b)
         picList.add(R.drawable.season_winter_c)
+        picList.add(R.drawable.season_spring_a)
+        picList.add(R.drawable.season_spring_b)
+        picList.add(R.drawable.season_spring_c)
+
         seasonChangerList.value = picList
     }
 

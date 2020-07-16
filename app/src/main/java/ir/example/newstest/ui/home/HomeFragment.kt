@@ -16,14 +16,11 @@ import ir.example.newstest.base.ViewModelScope
 import ir.example.newstest.databinding.FragmentHomeBinding
 import ir.example.newstest.domain.pojo.ItemType
 import ir.example.newstest.domain.pojo.MetaData
-import ir.example.newstest.domain.pojo.News
 import ir.example.newstest.domain.pojo.Season
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_news_en.*
 import kotlinx.android.synthetic.main.item_news_fa.*
 import kotlinx.android.synthetic.main.item_season_changer.*
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
@@ -40,21 +37,25 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     var seasonWidthSize = 0
 
     var sumSpringItemTypeA = 0
+    var sumSpringNItemTypeA = 0
     var sumSummerItemTypeA = 0
     var sumFallItemTypeA = 0
     var sumWinterItemTypeA = 0
 
     var sumSpringItemTypeB = 0
+    var sumSpringNItemTypeB = 0
     var sumSummerItemTypeB = 0
     var sumFallItemTypeB = 0
     var sumWinterItemTypeB = 0
 
     var springItemSizeTypeA = 0
+    var springNItemSizeTypeA = 0
     var summerItemSizeTypeA = 0
     var fallItemSizeTypeA = 0
     var winterItemSizeTypeA = 0
 
     var springItemSizeTypeB = 0
+    var springNItemSizeTypeB = 0
     var summerItemSizeTypeB = 0
     var fallItemSizeTypeB = 0
     var winterItemSizeTypeB = 0
@@ -63,6 +64,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     var sumSummerSize = 0
     var sumFallSize = 0
     var sumWinterSize = 0
+    var sumSpringNSize = 0
 
     override fun configEvents() {
         getSpringItemSizeTypeA(item_news_fa)
@@ -78,6 +80,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
                 return true
             }
+
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
         })
 
@@ -88,19 +91,26 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 super.onScrolled(recyclerView, dx, dy)
 
                 scrollPosition += dy
+                if (scrollPosition == 0) {
+                    list_news2.smoothScrollToPosition(0)
+                    Log.d("RecyclerViewScrollBy", "goto0000: $scrollPosition")
+                }
 
                 when (scrollPosition) {
                     in 0 until sumSpringSize -> {
-                        viewModel.scrollCalculate(dy,seasonWidthSize,sumSpringSize)
+                        viewModel.scrollCalculate(dy, seasonWidthSize, sumSpringSize)
                     }
                     in sumSpringSize + 1 until sumSpringSize + sumSummerSize -> {
-                        viewModel.scrollCalculate(dy,seasonWidthSize,sumSummerSize)
+                        viewModel.scrollCalculate(dy, seasonWidthSize, sumSummerSize)
                     }
                     in sumSpringSize + sumSummerSize + 1 until sumSpringSize + sumSummerSize + sumFallSize -> {
-                        viewModel.scrollCalculate(dy,seasonWidthSize,sumFallSize)
+                        viewModel.scrollCalculate(dy, seasonWidthSize, sumFallSize)
                     }
                     in sumSpringSize + sumSummerSize + sumFallSize + 1 until sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize -> {
-                        viewModel.scrollCalculate(dy,seasonWidthSize,sumWinterSize)
+                        viewModel.scrollCalculate(dy, seasonWidthSize, sumWinterSize)
+                    }
+                    in sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize + 1 until sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize + sumSpringNSize -> {
+                        viewModel.scrollCalculate(dy, seasonWidthSize, sumSpringNSize)
                     }
                 }
                 Log.d("RecyclerViewScrollBy", "list_news scrollPosition: $scrollPosition")
@@ -116,7 +126,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         })
     }
 
-    private fun scrollBy(scrollOffset: Int){
+    private fun scrollBy(scrollOffset: Int) {
         list_news2.scrollBy(scrollOffset, 0)
     }
 
@@ -137,6 +147,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 constraintLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 springItemSizeTypeA = constraintLayout.measuredHeight
                 Log.d("RecyclerViewScrollBy", "list_news ItemSizeTypeA: $springItemSizeTypeA")
+                springNItemSizeTypeA = springItemSizeTypeA
                 summerItemSizeTypeA = springItemSizeTypeA
                 fallItemSizeTypeA = springItemSizeTypeA
                 winterItemSizeTypeA = springItemSizeTypeA
@@ -152,6 +163,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                 constraintLayout.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 springItemSizeTypeB = constraintLayout.measuredHeight
                 Log.d("RecyclerViewScrollBy", "list_news ItemSizeTypeB: $springItemSizeTypeB")
+                springNItemSizeTypeB = springItemSizeTypeB
                 summerItemSizeTypeB = springItemSizeTypeB
                 fallItemSizeTypeB = springItemSizeTypeB
                 winterItemSizeTypeB = springItemSizeTypeB
@@ -176,11 +188,13 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun setItemSize() {
         sumSpringItemTypeA = 0
+        sumSpringNItemTypeA = 0
         sumSummerItemTypeA = 0
         sumFallItemTypeA = 0
         sumWinterItemTypeA = 0
 
         sumSpringItemTypeB = 0
+        sumSpringNItemTypeB = 0
         sumSummerItemTypeB = 0
         sumFallItemTypeB = 0
         sumWinterItemTypeB = 0
@@ -227,6 +241,16 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
                         }
                     }
                 }
+                Season.SPRING_N -> {
+                    when (it.itemType) {
+                        ItemType.MEDIUM -> {
+                            sumSpringNItemTypeA++
+                        }
+                        ItemType.LARGE -> {
+                            sumSpringNItemTypeB++
+                        }
+                    }
+                }
             }
         }
         sumSpringSize =
@@ -237,10 +261,14 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             (sumFallItemTypeA * fallItemSizeTypeA) + (sumFallItemTypeB * fallItemSizeTypeB)
         sumWinterSize =
             (sumWinterItemTypeA * winterItemSizeTypeA) + (sumWinterItemTypeB * winterItemSizeTypeB)
+        sumSpringNSize =
+            (sumSpringNItemTypeA * springNItemSizeTypeA) + (sumSpringNItemTypeB * springNItemSizeTypeB)
+
         Log.d("RecyclerViewScrollBy", "list_news sumSpringSize: $sumSpringSize")
         Log.d("RecyclerViewScrollBy", "list_news sumSummerSize: $sumSummerSize")
         Log.d("RecyclerViewScrollBy", "list_news sumFallSize: $sumFallSize")
         Log.d("RecyclerViewScrollBy", "list_news sumWinterSize: $sumWinterSize")
+        Log.d("RecyclerViewScrollBy", "list_news sumWinterSize: $sumSpringNSize")
     }
 
     override fun bindObservables() {
