@@ -50,40 +50,10 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {}
         })
 
-        var scrollPosition = 0
-
         list_news.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
-                scrollPosition += dy
-                Log.d("RecyclerViewScrollBy", "scrollPosition: $scrollPosition")
-
-
-                if (scrollPosition == 0) {
-                    list_news2.smoothScrollToPosition(0)
-                    Log.d("RecyclerViewScrollBy", "goto0000: $scrollPosition")
-                }
-
-                seasonSize?.apply {
-                    when (scrollPosition) {
-                        in 0 until sumSpringSize -> {
-                            viewModel.scrollCalculate(dy, sumSpringSize)
-                        }
-                        in sumSpringSize + 1 until sumSpringSize + sumSummerSize -> {
-                            viewModel.scrollCalculate(dy, sumSummerSize)
-                        }
-                        in sumSpringSize + sumSummerSize + 1 until sumSpringSize + sumSummerSize + sumFallSize -> {
-                            viewModel.scrollCalculate(dy, sumFallSize)
-                        }
-                        in sumSpringSize + sumSummerSize + sumFallSize + 1 until sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize -> {
-                            viewModel.scrollCalculate(dy, sumWinterSize)
-                        }
-                        in sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize + 1 until sumSpringSize + sumSummerSize + sumFallSize + sumWinterSize + sumSpringNSize -> {
-                            viewModel.scrollCalculate(dy, sumSpringNSize)
-                        }
-                    }
-                }
+                viewModel.scrollChanged(dy)
             }
         })
         var sumOnScrolledList2 = 0
@@ -102,7 +72,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun getViewSize(viewId: Int): Pair<Int, Int> {
         val inflater =
-            context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val contentView: View = inflater.inflate(viewId, null, false)
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val width: Int = contentView.measuredWidth
@@ -149,6 +119,9 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         })
         viewModel.scrollByValue.observe(this, Observer {
             scrollBy(it)
+        })
+        viewModel.smoothScrollToPosition.observe(this, Observer {
+            list_news2.smoothScrollToPosition(it)
         })
     }
 

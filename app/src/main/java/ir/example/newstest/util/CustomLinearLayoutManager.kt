@@ -11,35 +11,35 @@ import androidx.recyclerview.widget.RecyclerView
 class CustomLinearLayoutManager : LinearLayoutManager {
     constructor(context: Context?) : super(context) {}
     constructor(
-        context: Context?,
-        orientation: Int,
-        reverseLayout: Boolean
+            context: Context?,
+            orientation: Int,
+            reverseLayout: Boolean
     ) : super(context, orientation, reverseLayout) {
     }
 
     constructor(
-        context: Context?,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
+            context: Context?,
+            attrs: AttributeSet?,
+            defStyleAttr: Int,
+            defStyleRes: Int
     ) : super(context, attrs, defStyleAttr, defStyleRes) {
     }
 
     override fun smoothScrollToPosition(
-        recyclerView: RecyclerView,
-        state: RecyclerView.State,
-        position: Int
+            recyclerView: RecyclerView,
+            state: RecyclerView.State,
+            position: Int
     ) {
         val linearSmoothScroller: LinearSmoothScroller =
-            object : LinearSmoothScroller(recyclerView.context) {
-                override fun computeScrollVectorForPosition(targetPosition: Int): PointF? {
-                    return super.computeScrollVectorForPosition(targetPosition)
-                }
+                object : LinearSmoothScroller(recyclerView.context) {
+                    override fun computeScrollVectorForPosition(targetPosition: Int): PointF? {
+                        return super.computeScrollVectorForPosition(targetPosition)
+                    }
 
-                override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
-                    return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
+                    override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                        return MILLISECONDS_PER_INCH / displayMetrics.densityDpi
+                    }
                 }
-            }
         linearSmoothScroller.targetPosition = position
         startSmoothScroll(linearSmoothScroller)
     }

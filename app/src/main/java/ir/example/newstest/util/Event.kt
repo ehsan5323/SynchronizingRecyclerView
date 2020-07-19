@@ -57,8 +57,8 @@ class EventObserver<T>(private val onEventUnconsumedContent: (T) -> Unit) : Obse
 
 @MainThread
 inline fun <T> LiveData<Event<T>>.observeEvent(
-    owner: LifecycleOwner,
-    crossinline onChanged: (T) -> Unit
+        owner: LifecycleOwner,
+        crossinline onChanged: (T) -> Unit
 ): EventObserver<T> {
     return EventObserver<T> { t -> onChanged.invoke(t) }.apply {
         observe(owner, this)
