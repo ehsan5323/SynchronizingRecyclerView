@@ -35,13 +35,13 @@ class HomeViewModel @Inject constructor(
 
     var seasonWidthSize = 0
 
-    fun scrollCalculate(dy: Int, sumItemSize: Int) {
+    private fun scrollCalculate(dy: Int, sumItemSize: Int) {
         val percentage = seasonWidthSize.toFloat() / sumItemSize.toFloat()
         val offset = (dy * percentage).roundToInt()
         _scrollByValue.value = offset
     }
 
-    fun setSeasonWith(width: Int) {
+    fun setSeasonWidth(width: Int) {
         seasonWidthSize = width
         Log.d("RecyclerViewScrollBy", "list_news2 seasonWidthSize: $seasonWidthSize")
 

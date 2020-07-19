@@ -105,7 +105,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 season_layout.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                viewModel.setSeasonWith(season_layout.measuredWidth * 3)
+                viewModel.setSeasonWidth(season_layout.measuredWidth * 3)
             }
         })
     }
