@@ -1,0 +1,49 @@
+import ir.example.newstest.Deps
+import ir.example.newstest.Android
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion Android.compileSdkVersion
+    defaultConfig {
+        minSdkVersion Android.minSdkVersion
+        targetSdkVersion Android.targetSdkVersion
+        versionCode Android.versionCode
+        versionName Android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(Deps.Modules.domain)
+    implementation Deps.Core.kotlin_stdlib
+    testImplementation Deps.Test.junit
+    androidTestImplementation Deps.Test.testRunner
+    androidTestImplementation Deps.Test.espresso
+
+    implementation Deps.Dagger.dagger
+    kapt Deps.Dagger.daggerCompiler
+
+    implementation Deps.Network.retrofit
+    implementation Deps.Network.converterGson
+    implementation Deps.Network.converterXml
+
+    implementation Deps.Room.roomRuntime
+    kapt Deps.Room.roomCompiler
+    implementation Deps.Room.roomKtx
+
+    implementation Deps.Coroutine.coroutines_core
+    implementation Deps.Coroutine.coroutines_android
+}

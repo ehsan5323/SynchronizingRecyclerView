@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">NewsTest</string>
+    <string name="home">Home</string>
+    <string name="News">News</string>
+    <string name="feed">Feed</string>
+    <string name="favorites">Favorites</string>
+    <string name="your_favorite_list_empty">Your Favorite List Is Empty</string>
+    <string name="spring">Spring</string>
+    <string name="summer">Summer</string>
+    <string name="fall">Fall</string>
+    <string name="winter">Winter</string>
+    <string name="spring_new_year">Spring Next Year</string>
+</resources>

@@ -1,0 +1,92 @@
+import ir.example.newstest.Deps
+import ir.example.newstest.Android
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion Android.compileSdkVersion
+    defaultConfig {
+        applicationId Android.applicationId
+        minSdkVersion Android.minSdkVersion
+        targetSdkVersion Android.targetSdkVersion
+        versionCode Android.versionCode
+        versionName Android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures{
+        dataBinding = true
+        // for view binding :
+        // viewBinding = true
+    }
+}
+
+androidExtensions {
+    experimental = true
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation project(Deps.Modules.domain)
+    implementation project(Deps.Modules.data)
+
+    implementation Deps.Core.kotlin_stdlib
+    implementation Deps.Core.core_ktx
+    implementation Deps.Core.appCompat
+    implementation Deps.Core.fragmentKtx
+    implementation Deps.Core.constraintLayout
+    implementation Deps.Core.googleMaterial
+    implementation Deps.Core.recyclerView
+    implementation Deps.Core.supportFragment
+
+    testImplementation Deps.Test.junit
+    androidTestImplementation Deps.Test.testRunner
+    androidTestImplementation Deps.Test.espresso
+
+    implementation Deps.Dagger.dagger
+    implementation Deps.Dagger.daggerAndroid
+    kapt Deps.Dagger.daggerCompiler
+    kapt Deps.Dagger.daggerAndroidCompiler
+
+    implementation Deps.Coroutine.coroutines_core
+    implementation Deps.Coroutine.coroutines_android
+
+    implementation Deps.LifeCycles.runtimeKtx
+    implementation Deps.LifeCycles.livedataKtx
+    implementation Deps.LifeCycles.viewModelKtx
+    implementation Deps.LifeCycles.lifecycleCommon
+
+    implementation Deps.Room.roomRuntime
+    kapt Deps.Room.roomCompiler
+    implementation Deps.Room.roomKtx
+
+    implementation Deps.Navigation.navigationFragment
+    implementation Deps.Navigation.navigationUi
+
+    implementation Deps.ImageProcessing.glide
+    kapt Deps.ImageProcessing.glideCompiler
+
+    implementation Deps.Network.retrofit
+    implementation Deps.Network.converterGson
+    implementation Deps.Network.loggingInterceptor
+    implementation Deps.Network.okhttp
+    implementation Deps.Network.converterXml
+}
