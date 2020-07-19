@@ -18,7 +18,7 @@ import ir.example.newstest.domain.pojo.SeasonSize
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_news_en.*
 import kotlinx.android.synthetic.main.item_news_fa.*
-import kotlinx.android.synthetic.main.item_season_changer.*
+import kotlinx.android.synthetic.main.item_season.*
 
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
@@ -36,6 +36,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         getSpringItemSizeTypeA(item_news_fa)
         getSpringItemSizeTypeB(item_news_en)
         getSeasonItemSize()
+        getViewSize(R.layout.item_season)
 
         list_news.adapter = adapter
 
@@ -72,11 +73,12 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     private fun getViewSize(viewId: Int): Pair<Int, Int> {
         val inflater =
-                context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val contentView: View = inflater.inflate(viewId, null, false)
         contentView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
         val width: Int = contentView.measuredWidth
         val height: Int = contentView.measuredHeight
+        viewModel.setSeasonWidth(width * 3)
         return Pair(width, height)
     }
 
@@ -105,7 +107,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         vto.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 season_layout.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                viewModel.setSeasonWidth(season_layout.measuredWidth * 3)
+//                viewModel.setSeasonWidth(season_layout.measuredWidth * 3)
             }
         })
     }
@@ -121,7 +123,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             scrollBy(it)
         })
         viewModel.smoothScrollToPosition.observe(this, Observer {
-            list_news2.smoothScrollToPosition(it)
+//            list_news2.smoothScrollToPosition(it)
         })
     }
 
