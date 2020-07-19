@@ -49,8 +49,6 @@
             android:visibility="invisible"/>
         <include layout="@layout/item_season_changer"
             android:visibility="invisible"/>
-        <include layout="@layout/item_season"
-            android:visibility="invisible"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

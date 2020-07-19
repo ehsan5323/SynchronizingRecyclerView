@@ -18,8 +18,7 @@ import ir.example.newstest.domain.pojo.SeasonSize
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.item_news_en.*
 import kotlinx.android.synthetic.main.item_news_fa.*
-import kotlinx.android.synthetic.main.item_season.*
-
+import kotlinx.android.synthetic.main.item_season_changer.*
 
 class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
@@ -36,7 +35,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         getSpringItemSizeTypeA(item_news_fa)
         getSpringItemSizeTypeB(item_news_en)
         getSeasonItemSize()
-        getViewSize(R.layout.item_season)
+        getViewSize(R.layout.item_season_changer)
 
         list_news.adapter = adapter
 

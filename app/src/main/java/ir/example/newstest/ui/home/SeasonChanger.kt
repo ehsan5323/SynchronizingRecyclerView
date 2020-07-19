@@ -20,7 +20,7 @@ class SeasonChanger : BaseAdapter<Int>(DIFF_CALLBACK) {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return R.layout.item_season
+        return R.layout.item_season_changer
     }
 
     override fun onBindViewHolder(holder: DataBindingViewHolder, position: Int) {
